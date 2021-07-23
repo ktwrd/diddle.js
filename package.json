@@ -1,0 +1,14 @@
+{
+  "name": "discord-middleware",
+  "version": "0.0.1",
+  "description": "Middleware for the Popular API Wrapper 'Discord.JS'",
+  "main": "engine/init.js",
+  "scripts": {
+    "test": "node . --test"
+  },
+  "author": "Jyles Coad-Ward <jyles@dariox.club>",
+  "license": "MIT",
+  "dependencies": {
+    "discord.js": "^12.5.3"
+  }
+}
