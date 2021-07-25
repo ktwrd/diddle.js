@@ -2,10 +2,10 @@
   "name": "discord-middleware",
   "version": "0.0.1",
   "description": "Middleware for the Popular API Wrapper 'Discord.JS'",
-  "main": "engine/init.js",
+  "main": "engine/engine.js",
   "scripts": {
-    "test": "node . --test",
-    "build": "bunchee ./engine/engine.js"
+    "test": "node init.js --test --developer",
+    "build": "bunchee ./engine/engine.js -o ./dist/diddle.js"
   },
   "author": "Jyles Coad-Ward <jyles@dariox.club>",
   "license": "MIT",
