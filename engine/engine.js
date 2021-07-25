@@ -1,4 +1,16 @@
+const ScriptManager = require("./scriptman.js");
+const StatisticsWrapper = require("./statistics.js");
+
 class diddle {
+
+	manifest = {
+		version: '0.1b',
+		name: 'diddle.js/engine',
+		requires: [
+			'diddle.js/loader@0.1b',
+			'diddle.js/scpman@0.1b'
+		]
+	}
 
 	_isJSON(obj) {
 		return new Promise((res) => {
@@ -13,7 +25,7 @@ class diddle {
 
 	dlog(...d) {
 		if (this.debug) {
-			console.log(d.join(' '));
+			console.debug(d.join(' '));
 		}
 	}
 
@@ -23,7 +35,7 @@ class diddle {
 		}
 
 		this.debug = diddleconfig.debug != undefined && diddleconfig.debug == true;
-		dlog("Hello World!");
+		dlog(`Running ${this.manifest.name}@${this.manifest.version} ${this.debug ? '(Debug Mode Enabled)' : ''}`);
 	}
 }
 module.exports = diddle;
