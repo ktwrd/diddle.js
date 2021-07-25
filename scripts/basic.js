@@ -3,13 +3,13 @@ module.exports = {
 	manifest: {
 		author: 'Jyles Coad-Ward <jyles@dariox.club>',
 		license: 'MIT',
-		source: 'https://example.com/ping.js'
+		source: 'https://example.com/ping.js',
+		type: 'event'
 	}
 }
 module.exports.event.onload = (diddle) => {
 	// Executed when script is initally processed in diddle.js/loader
 }
-module.exports.event.test = 60;
 module.exports.event["discord-message"] = (message,diddle) => {
 	switch(message.command) {
 		case "ping":
