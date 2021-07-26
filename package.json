@@ -10,7 +10,10 @@
   "author": "Jyles Coad-Ward <jyles@dariox.club>",
   "license": "MIT",
   "dependencies": {
-    "discord.js": "^12.5.3"
+    "discord.js": "^12.5.3",
+    "graphite": "^0.1.4",
+    "http": "0.0.1-security",
+    "tinytoolbox": "0.0.8"
   },
   "devDependencies": {
     "bunchee": "^1.6.1"
