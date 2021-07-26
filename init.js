@@ -194,5 +194,4 @@ if (LaunchParameters.developer != undefined && LaunchParameters.developer == tru
 	} else {
 		dlog.d(`${scripts_filtered.length} script${scripts_filtered.length == 1 ? "":"s"} found. took ${Date.now() - timestamp_start}ms`);
 	}
-
 } )();
