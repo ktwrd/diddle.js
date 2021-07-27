@@ -20,6 +20,8 @@ class diddle {
 		]
 	}
 
+	startTimestamp = Date.now()
+
 	_eventchannels = {
 		/*
 		<channel>: function[]
