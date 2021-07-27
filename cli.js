@@ -95,16 +95,10 @@ if (LaunchParameters.config != undefined) {
 		dlog.i("diddle.js/cli-loader: Using Custom Config");
 	}
 }
-
+var directory = process.cwd()
 CustomConfigData.scripts_directory = CustomConfigData.scripts_directory || "./scripts/";
 
-if (CustomConfigData.scripts_directory.startsWith(".")) {
-	CustomConfigData.scripts_directory = path.join(__dirname,CustomConfigData.scripts_directory)
-} else if (CustomConfigData.scripts_directory.startsWith(/[a-zA-Z0-9]{0,2}/)) {
-	CustomConfigData.scripts_directory = path.join(__dirname,CustomConfigData.scripts_directory);
-} else {
-	CustomConfigData.scripts_directory = path.resolve(CustomConfigData.scripts_directory);
-}
+CustomConfigData.scripts_directory = path.join(path.resolve(CustomConfigData.scripts_directory),"/")
 
 var DoDebug = LaunchParameters.debug || LaunchParameters.developer || CustomConfigData.developer || CustomConfigData.debug || false;
 
