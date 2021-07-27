@@ -95,7 +95,7 @@ if (LaunchParameters.config != undefined) {
 		dlog.i("diddle.js/cli-loader: Using Custom Config");
 	}
 }
-var directory = process.cwd()
+
 CustomConfigData.scripts_directory = CustomConfigData.scripts_directory || "./scripts/";
 
 CustomConfigData.scripts_directory = path.join(path.resolve(CustomConfigData.scripts_directory),"/")
