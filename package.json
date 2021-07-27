@@ -1,5 +1,5 @@
 {
-  "name": "discord-middleware",
+  "name": "diddle.js",
   "version": "0.0.1",
   "description": "Middleware for the Popular API Wrapper 'Discord.JS'",
   "main": "engine/engine.js",
