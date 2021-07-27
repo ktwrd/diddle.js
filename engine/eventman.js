@@ -1,5 +1,5 @@
 const Logger = require("./logger");
-
+var self;
 class EventManager {
 	manifest = {
 		version: '0.1b',
@@ -8,30 +8,27 @@ class EventManager {
 	
 	constructor(diddle) {
 		this.diddle = diddle;
-		this.log = new Logger(this.diddle,this.manifest.name)
+		self = this;
+		this.log = new Logger(this.diddle,this.manifest.name);
 	}
 
 	_eventchannels = {}
 
 	on (_channel,..._callbacks) {
-		if (this._eventchannels[_channel] == undefined) {
-			this._eventchannels[_channel] = [];
+		if (self._eventchannels[_channel] == undefined) {
+			self._eventchannels[_channel] = [];
 		}
 		for ( let i = 0; i < _callbacks.length; i++) {
-			this._eventchannels[_channel].push(_callbacks[i]);
+			self._eventchannels[_channel].push(_callbacks[i]);
 		}
-		this.log.debug(`added event listener for '${_channel}'`);
+		self.log.debug(`added event listener for '${_channel}'`);
 	}
 	call (_channel,_data) {
-		if (this._eventchannels[_channel] == undefined) {
-			this._eventchannels[_channel] = [];
+		if (self._eventchannels[_channel] == undefined) {
+			self._eventchannels[_channel] = [];
 		}
-		this.log.debug(`called event '${_channel}' ${_data != undefined ? "with data of '"+_data+"'": ""}`)
-		if (_data == undefined) {
-			this._eventchannels[_channel].forEach(c => c(this.diddle));
-		} else {
-			this._eventchannels[_channel].forEach(c => c(this.diddle,_data));
-		}
+		self.log.debug(`called event '${_channel}' ${_data != undefined ? "with data of '"+_data+"'": ""}`)
+		self._eventchannels[_channel].forEach(c => c(self.diddle,_data || null));
 	}
 }
 module.exports = EventManager;

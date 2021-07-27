@@ -19,7 +19,7 @@ class LocaleManager {
 		version: '0.1b',
 		name: 'diddle.js/locale'
 	}
-	log = new Logger(this.diddle,this.manifest.name);
+	
 	cache = {
 		/*
 		<locale>: {
@@ -65,11 +65,12 @@ class LocaleManager {
 		this.currentLocale = this.cache[_localeName];
 		this.log.debug(`switched locale to; ${this.currentLocaleCode}`);
 	}
-	ready() {
-		this.diddle.event.call('locale-ready');
+	get(_entry) {
+		return this.currentLocale[_entry];
 	}
 	constructor(diddle) {
 		this.diddle = diddle;
+		this.log = new Logger(this.diddle,this.manifest.name);
 		this._localeDirectory = path.join(__dirname,'locale');
 
 		this.currentLocale = this.currentLocaleCode_default;

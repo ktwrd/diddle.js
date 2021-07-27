@@ -11,29 +11,25 @@ function extend(target) {
     return target;
 }
 
-class diddleConfig {
+class ConfigurationManager {
 	manifest = {
 		version: '0.1b',
 		name: 'diddle.js/configman'
 	}
-	log = new Logger(this.diddle,this.manifest.name);
-	constructor(diddle,_config) {
-		this.config = extend({},DefaultConfig,_config);
-		this.diddle = diddle;
+	async _ready() {
+		this.config = await extend({},DefaultConfig,this._config);
 
 		this.locale = this.diddle.locale.switch(this.config.locale);
+	}
+	constructor(diddle,_config) {
+		this.diddle = diddle;
+		this.config = _config;
+		this.log = new Logger(this.diddle,this.manifest.name);
 		this.log.info(`Running ${this.manifest.name}@${this.manifest.version}`);
 	}
 
-	get(datapoint) {
-		if (datapoint == undefined) throw new Error(this.locale.placeholders.objectUndefined.replace("%s","datapoint"))
-		if (this._config[datapoint] == undefined) throw new Error(this.locale.placeholders.objectChildUndefined.replace("%s",datapoint).replace("%s","this._config"));
-		return this._config[datapoint];
-	}
-
-	set(datapoint,data) {
-		if (datapoint == undefined) throw new Error(this.locale.placeholders.objectUndefined.replace("%s","datapoint"))
-		if (data == undefined) throw new Error(this.locale.placeholders.objectUndefined.replace("%s","data"));
+	get() {
+		return this.config;
 	}
 }
-module.exports = diddleConfig;
+module.exports = ConfigurationManager;
