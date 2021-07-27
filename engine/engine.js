@@ -14,7 +14,7 @@ const DiscordWrapper = require("./discord");
  * @file engine/engine.js
  * Main Engine File. This gets used when invoking a new instalce of the module 'diddle.js'
  */
-class diddle {
+class DiddleEngine {
 
 	/**
 	 * @type EngineScript.manifest
@@ -106,4 +106,4 @@ class diddle {
 	}
 		
 }
-module.exports = diddle;
+module.exports = DiddleEngine;
