@@ -1,15 +1,14 @@
 const EventManager = require("./eventman")
 const discord = require("discord.js");
-const Logger = require("./logger");
 const DiscordEvents = require("./discord-events.json");
+const EngineScript = require("./enginescript");
 
-class DiscordWrapper {
-	manifest = {
-		version: '0.1b',
-		name: 'diddle.js/discord'
-	}
-	log = new Logger(this.diddle,this.manifest.name);
-	client = new discord.Client();
+const manifest = {
+	version: '0.1b',
+	name: 'diddle.js/discord'
+}
+
+class DiscordWrapper extends EngineScript{
 
 	async _ready() {
 		this.log.info("connecting to discord");
@@ -31,9 +30,10 @@ class DiscordWrapper {
 	}
 
 	constructor(diddle) {
-		this.diddle = diddle;
+		super(diddle,manifest);
+		this.client = new discord.Client();
 		this.log.info(`Running ${this.manifest.name}@${this.manifest.version}`);
-		this.event = new EventManager(this.diddle);
+		this.event = this.diddle.event;
 		this.cmd_prefix = this.diddle.config.get().discord.prefix;
 		for ( let i = 0; i < DiscordEvents.length; i++ ) {
 			this.client.on(DiscordEvents[i],d => this.event.call(`discord-${DiscordEvents[i]}`,d));

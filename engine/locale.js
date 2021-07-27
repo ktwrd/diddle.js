@@ -1,8 +1,12 @@
 const path = require("path");
 const fs = require("fs");
 const toolbox = require("tinytoolbox");
+const EngineScript = require("./enginescript");
 
-const Logger = require("./logger")
+const manifest = {
+	version: '0.1b',
+	name: 'diddle.js/locale'
+}
 
 function extend(target) {
 	var sources = [].slice.call(arguments, 1);
@@ -14,11 +18,7 @@ function extend(target) {
 	return target;
 }
 
-class LocaleManager {
-	manifest = {
-		version: '0.1b',
-		name: 'diddle.js/locale'
-	}
+class LocaleManager extends EngineScript {
 	
 	cache = {
 		/*
@@ -69,8 +69,7 @@ class LocaleManager {
 		return this.currentLocale[_entry];
 	}
 	constructor(diddle) {
-		this.diddle = diddle;
-		this.log = new Logger(this.diddle,this.manifest.name);
+		super(diddle,manifest);
 		this._localeDirectory = path.join(__dirname,'locale');
 
 		this.currentLocale = this.currentLocaleCode_default;

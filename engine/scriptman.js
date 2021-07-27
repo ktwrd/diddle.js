@@ -1,13 +1,13 @@
 const fs = require("fs");
 const path = require("path");
-const Logger = require("./logger")
+const EngineScript = require("./enginescript");
 
-class ScriptManager {
+const manifest = {
+	version: '0.1b',
+	name: 'diddle.js/scriptman'
+}
 
-	manifest = {
-		version: '0.1b',
-		name: 'diddle.js/scriptman'
-	}
+class ScriptManager extends EngineScript{
 
 	_fetchScripts() {
 		var config = this.diddle.config.get();
@@ -185,8 +185,7 @@ class ScriptManager {
 	}
 
 	constructor(diddle) {
-		this.diddle = diddle;
-		this.log = new Logger(this.diddle,this.manifest.name);
+		super(diddle,manifest);
 		this.log.info(`Running ${this.manifest.name}@${this.manifest.version}`);
 	}
 }
