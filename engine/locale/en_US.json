@@ -1,0 +1,6 @@
+{
+	"placeholders": {
+		"objectUndefined": "Object '%s' is undefined",
+		"objectChildUndefined": "Object '%s' is not found as child of '%s'"
+	}
+}
