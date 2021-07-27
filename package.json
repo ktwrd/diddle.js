@@ -1,7 +1,7 @@
 {
   "name": "diddle.js",
   "version": "0.0.1",
-  "description": "Middleware for the Popular API Wrapper 'Discord.JS'",
+  "description": "Middleware for the Popular Discord API Wrapper 'Discord.JS'",
   "main": "engine/engine.js",
   "bin": {
     "diddlejs": "./cli.js"
