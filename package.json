@@ -8,7 +8,8 @@
 	},
 	"scripts": {
 		"test": "node cli.js --test --developer",
-		"build": "bunchee ./engine/engine.js -o ./dist/diddle.js"
+		"build": "bunchee ./engine/engine.js -o ./dist/diddle.js",
+		"docs": "jsdoc -c jsdoc.config.json"
 	},
 	"author": "Jyles Coad-Ward <jyles@dariox.club>",
 	"license": "MIT",
@@ -17,6 +18,8 @@
 		"tinytoolbox": "0.0.8"
 	},
 	"devDependencies": {
-		"bunchee": "^1.6.1"
+		"bunchee": "^1.6.1",
+		"jsdoc": "^3.6.7",
+		"minami": "^1.2.3"
 	}
 }

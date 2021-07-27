@@ -1,3 +1,8 @@
+/**
+ * @projectname diddle.js
+ * @version 0.3b
+ */
+
 const ScriptManager = require("./scriptman.js");
 const LogUtil = require("./logger.js")
 const LocaleManager = require("./locale.js");
@@ -5,8 +10,15 @@ const ConfigurationManager = require("./configman.js");
 const EventManager = require("./eventman");
 const DiscordWrapper = require("./discord");
 
+/**
+ * @file engine/engine.js
+ * Main Engine File. This gets used when invoking a new instalce of the module 'diddle.js'
+ */
 class diddle {
 
+	/**
+	 * @type EngineScript.manifest
+	 */
 	manifest = {
 		version: '0.3b',
 		name: 'diddle.js/engine',
@@ -20,6 +32,9 @@ class diddle {
 		]
 	}
 
+	/**
+	 * @type int
+	 */
 	startTimestamp = Date.now()
 
 	_eventchannels = {
@@ -29,6 +44,7 @@ class diddle {
 	};
 
 
+	/** @private */
 	_isJSON(obj) {
 		return new Promise((res) => {
 			try {
@@ -39,10 +55,24 @@ class diddle {
 			res(true);
 		})
 	}
+	/**
+	 * @type {module:LocaleManager}
+	 */
 	locale = null;
+	/**
+	 * @type {module:ConfigurationManager}
+	 */
 	config = null;
+	/**
+	 * @type {module:DiscordWrapper}
+	 */
 	discord = null;
+	/**
+	 * @type {module:ScriptManager}
+	 */
+	scripts = null;
 
+	/** @private */
 	_wrapperPopulate() {
 		var diddle = this;
 		this.locale = new LocaleManager(diddle);
@@ -54,6 +84,11 @@ class diddle {
 		this.scripts._ready();
 		this.discord._ready();
 	}
+	/**
+	 * @constructor
+	 * @param {module:Engine.config} diddleconfig User configuration, gets merged with <code>engine/diddle.config.default.json</code> to make sure that the required values are populated.
+	 * @param {bool} debug Wether to enable debug logging
+	 */
 	constructor(diddleconfig,debug) {
 		this.debug = debug;
 		if (!this._isJSON(diddleconfig)) {
