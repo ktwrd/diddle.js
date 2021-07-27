@@ -1,0 +1,10 @@
+{
+	"disable": false,
+	"discord": {
+		"token": "",
+		"admin": []
+	},
+	"locale": "en_US",
+	"scripts_directory": "./scripts/",
+	"debug": false
+}
