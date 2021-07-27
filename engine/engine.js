@@ -13,7 +13,7 @@ const DiscordWrapper = require("./discord");
  * @class
  * @file engine/engine.js
  * @property {module:EngineScript.manifest} manifest
- * @property number startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
+ * @property {number} startTimestamp startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
  */
 class DiddleEngine {
 
@@ -33,9 +33,6 @@ class DiddleEngine {
 		]
 	}
 
-	/**
-	 * @type int
-	 */
 	startTimestamp = Date.now()
 
 	_eventchannels = {
