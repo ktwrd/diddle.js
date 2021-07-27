@@ -1,17 +1,28 @@
+const DefaultConfig = require("./diddle.config.default.json");
+const Logger = require("./logger")
 
+function extend(target) {
+    var sources = [].slice.call(arguments, 1);
+    sources.forEach(function (source) {
+        for (var prop in source) {
+            target[prop] = source[prop];
+        }
+    });
+    return target;
+}
 
 class diddleConfig {
-
 	manifest = {
 		version: '0.1b',
 		name: 'diddle.js/configman'
 	}
-
-	constructor(_config,diddle) {
-		this._config = _config;
+	log = new Logger(this.diddle,this.manifest.name);
+	constructor(diddle,_config) {
+		this.config = extend({},DefaultConfig,_config);
 		this.diddle = diddle;
 
-		this.locale = this.diddle.locale.get(_config.locale || 'en_US');
+		this.locale = this.diddle.locale.switch(this.config.locale);
+		this.log.info(`Running ${this.manifest.name}@${this.manifest.version}`);
 	}
 
 	get(datapoint) {
