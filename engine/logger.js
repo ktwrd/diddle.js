@@ -1,5 +1,8 @@
 class Logger {
-	constructor(diddle,prefix) { this.diddle = diddle; this.prefix = prefix || "diddle.js"; }
+	constructor(diddle,prefix) { 
+		this.diddle = diddle; 
+		this.prefix = prefix || "diddle.js";
+	}
 
 	color = {
 		Reset: "\x1b[0m",
@@ -30,6 +33,7 @@ class Logger {
 	}
 
 	debug(...c) {
+		if (!this.diddle.debug) return;
 		console.log(`${this.color.BgBlack}${this.color.FgMagenta}${this.prefix}:${this.color.Reset} ${c.join(' ')}`);
 	}
 	info(...c) {
