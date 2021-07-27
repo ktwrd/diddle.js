@@ -1,6 +1,0 @@
-{
-	"placeholder.objectUndefined": "Object '%s' is undefined",
-	"placeholder.objectChildUndefined": "Object '%s' is not found as child of '%s'",
-	"placeholder.scriptEventUndefined": "Script Child Object 'event' is undefined.\n%s",
-	"placeholder.scriptLibraryUndefined": "Script Child Object 'library' Object is undefined.\n%s"
-}
