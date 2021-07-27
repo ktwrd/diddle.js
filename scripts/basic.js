@@ -7,7 +7,7 @@ module.exports = {
 		type: 'event'
 	}
 }
-module.exports.event.onload = (diddle) => {
+module.exports.event.ready = (diddle) => {
 	// Executed when script is initally processed in diddle.js/loader
 }
 module.exports.event["discord-message"] = (diddle,message) => {
