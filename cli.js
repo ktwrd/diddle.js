@@ -1,11 +1,13 @@
+#!node
 module.exports = {
 	version: '0.1b',
 	name: 'diddle.js/loader',
 	requires: [
-		'diddle.js/engine@0.0.1'
+		'diddle.js/engine@0.1b'
 	]
 }
 
+const fs = require("fs");
 
 var LaunchParameters = null;
 
@@ -33,6 +35,8 @@ var LaunchParameters = null;
 	LaunchParameters = argvParsed;
 } )();
 
+var CustomConfigData = {default:true};
+
 const dlog = {
 	w: (...c) => {
 		console.warn(`\x1b[33m\x1b[40mdiddle.js/loader:\x1b[0m ${c.join(' ')}`)
@@ -48,15 +52,47 @@ const dlog = {
 		console.warn(`\x1b[36m\x1b[40mdiddle.js/loader:\x1b[0m ${c.join(' ')}`)
 	}
 }
-const packagejson = require("./package.json");
-if (packagejson.dependencies["diddle.js"] == undefined && (LaunchParameters.developer == undefined && !LaunchParameters.developer)) {
-	// diddle.js Not installed or running in developer mode
-	dlog.e("diddle.js is not installed! try installing with `npm install diddle.js --save`");
-	process.exit(1);
-}
 
 if (LaunchParameters.developer != undefined && LaunchParameters.developer == true) {
 	dlog.d(`developer mode enabled!`);
+} else {
+	/*try {
+		require("diddle.js");
+	} catch(e) {
+		// diddle.js Not installed or running in developer mode
+		dlog.e("diddle.js is not installed! try installing with `npm install diddle.js --save`\n",e);
+		process.exit(1);
+	}*/
+}
+
+var DefaultConfigFilename = ["diddle.config.json","diddle.config.js"];
+
+function containsObject(obj, list) {
+	for (let i = 0; i < list.length; i++) {
+		if (list[i] === obj) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
+if (LaunchParameters.config == undefined) {
+	fs.readdirSync("./").forEach((file) => {
+		if (containsObject(file,DefaultConfigFilename)) {
+			LaunchParameters.config = file;
+		}
+	})
+}
+
+if (LaunchParameters.config != undefined) {
+	if (fs.existsSync(LaunchParameters.config)) {
+		UseCustomConfig = true;
+
+		CustomConfigData = JSON.parse(fs.readFileSync(LaunchParameters.config));
+		CustomConfigData.default = false;
+		dlog.i("diddle.js/cli-loader: Using Custom Config");
+	}
 }
 
 // Fetch User Scripts
@@ -64,9 +100,8 @@ if (LaunchParameters.developer != undefined && LaunchParameters.developer == tru
 	var timestamp_start = Date.now();
 
 	dlog.i(`fetching scripts...`);
-	const fs = require("fs");
 
-	var scriptsdirectory = LaunchParameters["script-directory"] || "scripts";
+	var scriptsdirectory = LaunchParameters["script-directory"] || CustomConfigData.scripts_directory || "./scripts/";
 
 	if (!fs.existsSync(scriptsdirectory)) {
 		try {
@@ -97,10 +132,9 @@ if (LaunchParameters.developer != undefined && LaunchParameters.developer == tru
 		},
 		event: {},
 	}
-
 	for ( let j = 0; j < scripts_filenames.length; j++ ) {
 		try {
-			let currentscript = require(`${scriptsdirectory == "scripts" ? "./scripts/" : scriptsdirectory}${scripts_filenames[j]}`);
+			let currentscript = require(`${scriptsdirectory}${scripts_filenames[j]}`);
 
 			let currentscript_fname = scripts_filenames[j];
 
@@ -127,7 +161,7 @@ if (LaunchParameters.developer != undefined && LaunchParameters.developer == tru
 			}
 
 			// Check Script Manifest
-			if (currentscript.manifest != undefined && !doSkipScript) {
+			if (currentscript.manifest != undefined && doSkipScript == false) {
 				ValidScript.manifest = {};
 				var manifestobjs = Object.entries(ScriptScheme.manifest);
 
@@ -169,7 +203,7 @@ if (LaunchParameters.developer != undefined && LaunchParameters.developer == tru
 					}
 				}
 
-				if (currentscript.manifest.type == undefined && !doSkipScript) {
+				if (currentscript.manifest.type == undefined && doSkipScript == false) {
 					dlog.w(`manifest type is undefined, assuming as 'library'`);
 					ValidScript.manifest.type = ValidScript.manifest.type || 'library';
 				}
@@ -179,7 +213,7 @@ if (LaunchParameters.developer != undefined && LaunchParameters.developer == tru
 				dlog.e(skipReason);
 			}
 
-			if (!doSkipScript) {
+			if (doSkipScript == false) {
 				scripts_filtered.push(ValidScript);
 			}
 		} catch(e) {
@@ -195,3 +229,5 @@ if (LaunchParameters.developer != undefined && LaunchParameters.developer == tru
 		dlog.d(`${scripts_filtered.length} script${scripts_filtered.length == 1 ? "":"s"} found. took ${Date.now() - timestamp_start}ms`);
 	}
 } )();
+
+const diddleInstance = new (require("."))(CustomConfigData);
