@@ -35,7 +35,7 @@ var LaunchParameters = null;
 	LaunchParameters = argvParsed;
 } )();
 
-var CustomConfigData = {default:true};
+var CustomConfigData = {};
 
 const dlog = {
 	w: (...c) => {
