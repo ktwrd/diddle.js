@@ -1,18 +1,19 @@
-/**
- * @projectname diddle.js
- * @version 0.3b
- */
-
 const ScriptManager = require("./scriptman.js");
 const LogUtil = require("./logger.js")
 const LocaleManager = require("./locale.js");
 const ConfigurationManager = require("./configman.js");
 const EventManager = require("./eventman");
 const DiscordWrapper = require("./discord");
-
 /**
+ * @projectname diddle.js
+ * @version 0.3b
+ */
+/**
+ * diddle.js Engine
+ * @class
  * @file engine/engine.js
- * Main Engine File. This gets used when invoking a new instalce of the module 'diddle.js'
+ * @property {module:EngineScript.manifest} manifest
+ * @property number startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
  */
 class DiddleEngine {
 
