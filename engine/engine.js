@@ -2,6 +2,7 @@ const ScriptManager = require("./scriptman.js");
 const LogUtil = require("./logger.js")
 const LocaleManager = require("./locale.js");
 const ConfigurationManager = require("./configman.js");
+const EventManager = require("./eventman")
 
 class diddle {
 
@@ -12,9 +13,20 @@ class diddle {
 			'diddle.js/loader@0.1b',
 			'diddle.js/scriptman@0.1b',
 			'diddle.js/configman@0.1b',
-			'diddle.js/locale@0.1b'
+			'diddle.js/locale@0.1b',
+			'diddle.js/eventman@0.1b'
 		]
 	}
+
+	log = new LogUtil(this.diddle,this.manifest.name);
+
+	_eventchannels = {
+		/*
+		<channel>: function[]
+		*/
+	};
+
+	event = new EventManager(this.diddle);
 
 	_isJSON(obj) {
 		return new Promise((res) => {
@@ -26,17 +38,21 @@ class diddle {
 			res(true);
 		})
 	}
-
-	log = new LogUtil(this);
-	
+	locale = new LocaleManager(this);
 	constructor(diddleconfig) {
 		if (!this._isJSON(diddleconfig)) {
 			throw new Error("Configuration is not JSON");
 		}
 
 		this.debug = diddleconfig.debug != undefined && diddleconfig.debug == true;
-		this._log = new LogUtil(this,"diddle.js/engine");
-		log.debug(`Running ${this.manifest.name}@${this.manifest.version} ${this.debug ? '(Debug Mode Enabled)' : ''}`);
+		this.log = new LogUtil(this,"diddle.js/engine");
+		this.log.info(`Running ${this.manifest.name}@${this.manifest.version} ${this.debug ? '(Debug Mode Enabled)' : ''}`);
+	
+		this.event.on('locale-ready',() => {
+			this.config = new ConfigurationManager(this,diddleconfig);
+		})
+		this.locale.ready();
 	}
+		
 }
 module.exports = diddle;
