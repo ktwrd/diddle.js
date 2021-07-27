@@ -1,5 +1,7 @@
 const ScriptManager = require("./scriptman.js");
-const StatisticsWrapper = require("./statistics.js");
+const LogUtil = require("./logger.js")
+const LocaleManager = require("./locale.js");
+const ConfigurationManager = require("./configman.js");
 
 class diddle {
 
@@ -8,7 +10,9 @@ class diddle {
 		name: 'diddle.js/engine',
 		requires: [
 			'diddle.js/loader@0.1b',
-			'diddle.js/scpman@0.1b'
+			'diddle.js/scriptman@0.1b',
+			'diddle.js/configman@0.1b',
+			'diddle.js/locale@0.1b'
 		]
 	}
 
@@ -23,19 +27,16 @@ class diddle {
 		})
 	}
 
-	dlog(...d) {
-		if (this.debug) {
-			console.debug(d.join(' '));
-		}
-	}
-
+	log = new LogUtil(this);
+	
 	constructor(diddleconfig) {
 		if (!this._isJSON(diddleconfig)) {
 			throw new Error("Configuration is not JSON");
 		}
 
 		this.debug = diddleconfig.debug != undefined && diddleconfig.debug == true;
-		dlog(`Running ${this.manifest.name}@${this.manifest.version} ${this.debug ? '(Debug Mode Enabled)' : ''}`);
+		this._log = new LogUtil(this,"diddle.js/engine");
+		log.debug(`Running ${this.manifest.name}@${this.manifest.version} ${this.debug ? '(Debug Mode Enabled)' : ''}`);
 	}
 }
 module.exports = diddle;
