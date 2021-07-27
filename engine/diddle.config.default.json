@@ -5,5 +5,6 @@
 		"admin": []
 	},
 	"locale": "en_US",
-	"scripts_directory": "./scripts/"
+	"scripts_directory": "./scripts/",
+	"debug": false
 }
