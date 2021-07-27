@@ -22,10 +22,19 @@ class DiscordWrapper {
 		this.log.info("connected to discord as "+this.client.user.tag);
 	}
 	
+	msg(_message) {
+		_message.prefix = this.diddle.config.get().discord.prefix;
+		_message.command = _message.content.replace(_message.prefix,"").split(' ')[0];
+		_message.args = _message.content.split(_message.prefix+_message.command).join('').split(' ');
+		_message.command = _message.command.toLowerCase().trim();
+		return _message;
+	}
+
 	constructor(diddle) {
 		this.diddle = diddle;
 		this.log.info(`Running ${this.manifest.name}@${this.manifest.version}`);
 		this.event = new EventManager(this.diddle);
+		this.cmd_prefix = this.diddle.config.get().discord.prefix;
 		for ( let i = 0; i < DiscordEvents.length; i++ ) {
 			this.client.on(DiscordEvents[i],d => this.event.call(`discord-${DiscordEvents[i]}`,d));
 		}
