@@ -14,8 +14,6 @@
   "license": "MIT",
   "dependencies": {
     "discord.js": "^12.5.3",
-    "graphite": "^0.1.4",
-    "http": "0.0.1-security",
     "tinytoolbox": "0.0.8"
   },
   "devDependencies": {
