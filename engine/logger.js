@@ -30,16 +30,16 @@ class Logger {
 	}
 
 	debug(...c) {
-		console.log(`${this.color.BgBlack}${this.color.FgMagenta}${prefix}:${this.color.Reset} ${c.join(' ')}`);
+		console.log(`${this.color.BgBlack}${this.color.FgMagenta}${this.prefix}:${this.color.Reset} ${c.join(' ')}`);
 	}
 	info(...c) {
-		console.log(`${this.color.BgBlack}${this.color.FgBlue}${prefix}:${this.color.Reset} ${c.join(' ')}`);
+		console.log(`${this.color.BgBlack}${this.color.FgBlue}${this.prefix}:${this.color.Reset} ${c.join(' ')}`);
 	}
 	warn(...c) {
-		console.log(`${this.color.BgBlack}${this.color.FgYellow}${prefix}:${this.color.Reset} ${c.join(' ')}`);
+		console.log(`${this.color.BgBlack}${this.color.FgYellow}${this.prefix}:${this.color.Reset} ${c.join(' ')}`);
 	}
 	error(...c) {
-		console.log(`${this.color.BgBlack}${this.color.FgRed}${prefix}:${this.color.Reset} ${c.join(' ')}`);
+		console.log(`${this.color.BgBlack}${this.color.FgRed}${this.prefix}:${this.color.Reset} ${c.join(' ')}`);
 	}
 }
 module.exports = Logger;
