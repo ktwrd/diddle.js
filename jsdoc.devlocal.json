@@ -5,7 +5,7 @@
 		"includePattern": ".+\\.js(doc|x)?$",
 		"excludePattern": "(^|\\/|\\\\)_"
 	},
-	"sourceType": "module",
+	"sourceType": "class",
 	"tags": {
 		"allowUnknownTags": true,
 		"dictionaries": ["jsdoc","closure"]
