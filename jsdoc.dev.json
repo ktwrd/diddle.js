@@ -1,7 +1,7 @@
 {
 	"recurseDepth": 10,
 	"source": {
-		"include": ["source-dev"],
+		"include": ["source-dev/engine"],
 		"includePattern": ".+\\.js(doc|x)?$",
 		"excludePattern": "(^|\\/|\\\\)_"
 	},
