@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "build-dev": "jsdoc -c jsdoc.dev.json",
+    "build-dev-local": "jsdoc -c jsdoc.devlocal.json",
     "build": "jsdoc -c jsdoc.json"
   },
   "repository": {
