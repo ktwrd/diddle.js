@@ -2,3 +2,11 @@
 	path = source
 	url = https://github.com/jylescoad-ward/diddle.js
 	branch = stable
+[submodule "source-dev"]
+	path = source-dev
+	url = https://github.com/jylescoad-ward/diddle.js.git
+	branch = dev
+[submodule "source"]
+	path = source
+	url = https://github.com/jylescoad-ward/diddle.js.git
+	branch = stable
