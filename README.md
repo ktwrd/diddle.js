@@ -1,6 +1,7 @@
 <p align="center">
-	# diddle.js
-	## Middle-ware for [discord.js](https://discord.js.org)
+	<h1>diddle.js</h1>
+	<h2>Middle-ware for <a href="https://discord.js.org">discord.js</a></h2>
 </p>
-### [Documentation](docs/stable)
-[Documentation (Development Branch)](docs/dev)
+
+<h2><a href="docs/stable">Documentation</a></h2>
+<a href="docs/dev">Documentation (Development Branch)</a>
