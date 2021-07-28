@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>engine.js - Documentation</title>
+    <title>eventman.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">engine.js</h1>
+    <h1 class="page-title">eventman.js</h1>
     
 
     
@@ -39,111 +39,52 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const ScriptManager = require("./scriptman.js");
-const LogUtil = require("./logger.js")
-const LocaleManager = require("./locale.js");
-const ConfigurationManager = require("./configman.js");
-const EventManager = require("./eventman");
-const DiscordWrapper = require("./discord");
-/**
- * @projectname diddle.js
- * @version 0.4b
- */
-/**
- * diddle.js Engine
- * @class
- * @property {EngineScript.manifest} manifest
- * @property {number} startTimestamp startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
- */
-class DiddleEngine {
-	/**
-	 * @type {EngineScript.manifest}
-	 */
-	manifest = {
-		version: '0.4b',
-		name: 'diddle.js/engine',
-		requires: [
-			'diddle.js/loader@0.1b',
-			'diddle.js/scriptman@0.1b',
-			'diddle.js/configman@0.1b',
-			'diddle.js/locale@0.1b',
-			'diddle.js/eventman@0.1b',
-			'diddle.js/discord@0.1b'
-		]
-	}
+            <pre class="prettyprint source linenums"><code>const Logger = require("./logger");
 
-	startTimestamp = Date.now()
-
-	_eventchannels = {
-		/*
-		&lt;channel>: function[]
-		*/
-	};
-
-
-	/** @private */
-	_isJSON(obj) {
-		return new Promise((res) => {
-			try {
-				let t = JSON.stringify(obj);
-			} catch(e) {
-				res(false);
-			}
-			res(true);
-		})
-	}
-	/**
-	 * @type {LocaleManager}
-	 */
-	locale = null;
-	/**
-	 * @type {ConfigurationManager}
-	 */
-	config = null;
-	/**
-	 * @type {DiscordWrapper}
-	 */
-	discord = null;
-	/**
-	 * @type {ScriptManager}
-	 */
-	scripts = null;
-
-	/** @private */
-	_wrapperPopulate() {
-		var diddle = this;
-		this.locale = new LocaleManager(diddle);
-		this.config = new ConfigurationManager(diddle,this._config);
-		this.discord = new DiscordWrapper(diddle);
-		this.scripts = new ScriptManager(diddle);
-
-		this.config._ready();
-		this.scripts._ready();
-		this.discord._ready();
-	}
-	/**
-	 * @constructor
-	 * @param {module:Engine.config} diddleconfig User configuration, gets merged with &lt;code>engine/diddle.config.default.json&lt;/code> to make sure that the required values are populated.
-	 * @param {bool} debug Wether to enable debug logging
-	 */
-	constructor(diddleconfig,debug) {
-		this.debug = debug;
-		if (!this._isJSON(diddleconfig)) {
-			throw new Error("Configuration is not JSON");
-		}
-		this.event = new EventManager(this);
-		this.log = new LogUtil(this,this.manifest.name);
-
-		this._config = diddleconfig;
-
-		this.log = new LogUtil(this,"diddle.js/engine");
-		this.log.info(`Running ${this.manifest.name}@${this.manifest.version} ${this.debug ? '(Debug Mode Enabled)' : ''}`);
-
-		this._wrapperPopulate();
-	}
-		
+const manifest = {
+	version: '0.1b',
+	name: 'diddle.js/eventman'
 }
-module.exports = DiddleEngine;</code></pre>
+/**
+ * @class EventManager
+ * @property {EngineScript.Manifest} manifest
+ */
+class EventManager {
+
+	constructor(diddle) {
+		this.diddle = diddle;
+		this._eventchannels = {}
+		this.log = new Logger(diddle,"diddle.js/eventman");
+		this.manifest = manifest;
+	}
+	/**
+	 * Listen to an event on specified channel.
+	 * @param {string} _channel 
+	 * @param  {...function} _callbacks 
+	 */
+	on (_channel,..._callbacks) {
+		if (this._eventchannels[_channel] == undefined) {
+			this._eventchannels[_channel] = [];
+		}
+		for ( let i = 0; i &lt; _callbacks.length; i++) {
+			this._eventchannels[_channel].push(_callbacks[i]);
+		}
+		this.log.debug(`added event listener for '${_channel}'`);
+	}
+	/**
+	 * Invoke Event to the specified channel.
+	 * @param {string} _channel 
+	 * @param {*} _data 
+	 */
+	call (_channel,_data) {
+		if (this._eventchannels[_channel] == undefined) {
+			this._eventchannels[_channel] = [];
+		}
+		this.log.debug(`called event '${_channel}' `,_data || '');
+		this._eventchannels[_channel].forEach(c => c(this.diddle,_data || null));
+	}
+}
+module.exports = EventManager;</code></pre>
         </article>
     </section>
 

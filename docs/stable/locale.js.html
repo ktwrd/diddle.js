@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>engine.js - Documentation</title>
+    <title>locale.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">engine.js</h1>
+    <h1 class="page-title">locale.js</h1>
     
 
     
@@ -39,111 +39,106 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>const ScriptManager = require("./scriptman.js");
-const LogUtil = require("./logger.js")
-const LocaleManager = require("./locale.js");
-const ConfigurationManager = require("./configman.js");
-const EventManager = require("./eventman");
-const DiscordWrapper = require("./discord");
-/**
- * @projectname diddle.js
- * @version 0.4b
- */
-/**
- * diddle.js Engine
- * @class
- * @property {EngineScript.manifest} manifest
- * @property {number} startTimestamp startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
- */
-class DiddleEngine {
-	/**
-	 * @type {EngineScript.manifest}
-	 */
-	manifest = {
-		version: '0.4b',
-		name: 'diddle.js/engine',
-		requires: [
-			'diddle.js/loader@0.1b',
-			'diddle.js/scriptman@0.1b',
-			'diddle.js/configman@0.1b',
-			'diddle.js/locale@0.1b',
-			'diddle.js/eventman@0.1b',
-			'diddle.js/discord@0.1b'
-		]
-	}
+            <pre class="prettyprint source linenums"><code>const path = require("path");
+const fs = require("fs");
+const toolbox = require("tinytoolbox");
+const EngineScript = require("./enginescript");
 
-	startTimestamp = Date.now()
+const manifest = {
+	version: '0.1b',
+	name: 'diddle.js/locale'
+}
 
-	_eventchannels = {
+function extend(target) {
+	var sources = [].slice.call(arguments, 1);
+	sources.forEach(function (source) {
+		for (var prop in source) {
+			target[prop] = source[prop];
+		}
+	});
+	return target;
+}
+
+/**
+ * @typedef LocaleManager.LocaleCode
+ * @type {string}
+ * @description Locale Codes must be formatted as &lt;code>[&lt;a href="https://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1&lt;/a>]_[&lt;a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2&lt;/a>]&lt;/code>. So, for example the Default Locale Code is &lt;code>en_US&lt;/code>
+ */
+
+/**
+ * @class LocaleManager
+ * @description Used for managing localization files stored in &lt;code>engine/locale/&lt;/code>
+ * @argument {DiddleEngine} diddle
+ */
+class LocaleManager extends EngineScript {
+	
+	cache = {
 		/*
-		&lt;channel>: function[]
+		&lt;locale>: {
+			placeholders: {}, // Things that have %s which get replaced
+			// all the other things would go here
+		}
 		*/
 	};
 
+	currentLocaleCode_default = "en_US";
+	currentLocaleCode = this.currentLocaleCode_default;
 
-	/** @private */
-	_isJSON(obj) {
-		return new Promise((res) => {
-			try {
-				let t = JSON.stringify(obj);
-			} catch(e) {
-				res(false);
-			}
-			res(true);
-		})
-	}
-	/**
-	 * @type {LocaleManager}
-	 */
-	locale = null;
-	/**
-	 * @type {ConfigurationManager}
-	 */
-	config = null;
-	/**
-	 * @type {DiscordWrapper}
-	 */
-	discord = null;
-	/**
-	 * @type {ScriptManager}
-	 */
-	scripts = null;
+	_fetch(_localeName) {
+		var _localePath = path.join(this._localeDirectory,_localeName+".json");
 
-	/** @private */
-	_wrapperPopulate() {
-		var diddle = this;
-		this.locale = new LocaleManager(diddle);
-		this.config = new ConfigurationManager(diddle,this._config);
-		this.discord = new DiscordWrapper(diddle);
-		this.scripts = new ScriptManager(diddle);
-
-		this.config._ready();
-		this.scripts._ready();
-		this.discord._ready();
-	}
-	/**
-	 * @constructor
-	 * @param {module:Engine.config} diddleconfig User configuration, gets merged with &lt;code>engine/diddle.config.default.json&lt;/code> to make sure that the required values are populated.
-	 * @param {bool} debug Wether to enable debug logging
-	 */
-	constructor(diddleconfig,debug) {
-		this.debug = debug;
-		if (!this._isJSON(diddleconfig)) {
-			throw new Error("Configuration is not JSON");
+		if (fs.existsSync(_localePath)) {
+			// Locale Exists
+			return JSON.parse(fs.readFileSync(_localePath));
+		} else {
+			// Locale does not exist
+			throw new Error(`Locale does not exist at '${_localePath}'`);
 		}
-		this.event = new EventManager(this);
-		this.log = new LogUtil(this,this.manifest.name);
-
-		this._config = diddleconfig;
-
-		this.log = new LogUtil(this,"diddle.js/engine");
-		this.log.info(`Running ${this.manifest.name}@${this.manifest.version} ${this.debug ? '(Debug Mode Enabled)' : ''}`);
-
-		this._wrapperPopulate();
 	}
-		
+	_reload() {
+		toolbox.async.forEach(fs.readdirSync(this._localeDirectory),(_file) => {
+			if (!_file.endsWith(".json")) return;
+			this.cache[_file.replace(".json","")] = require("./locale/"+_file);
+		});
+	}
+	_set(_targetLocale) {
+		// Return the merged locale of target locale into default locale
+		var newLocale = extend({},this.cache[this.currentLocaleCode],this.cache[this.currentLocaleCode_default]);
+		this.currentLocaleCode = _targetLocale;
+		this.currentLocale = newLocale;
+		return newLocale;
+	}
+
+	/**
+	 * @param {LocaleManager.LocaleCode} _localeName Locale Code to Switch to. If &lt;code>undefined&lt;/code> will switch to the Default Locale (&lt;code>en_US&lt;/code>)
+	 */
+	switch(_localeName) {
+		if (_localeName == undefined) throw new Error("Locale is undefined");
+		this.currentLocaleCode = _localeName;
+		// Reload locale cache before setting the currentLocale to the one we desire.
+		this._reload();
+		if (this.cache[_localeName] == undefined) throw new Error("Locale does not exist");
+		this.currentLocale = this.cache[_localeName];
+		this.log.debug(`switched locale to; ${this.currentLocaleCode}`);
+	}
+
+	/**
+	 * @param {LocaleManager.LocaleCode} _entry Locale Code to Get. If &lt;code>undefined&lt;/code> will return the Current Locale.
+	 * @returns {LocaleData}
+	 */
+	get(_entry) {
+		_entry = _entry || this.currentLocaleCode;
+		return this.currentLocale[_entry];
+	}
+	constructor(diddle) {
+		super(diddle,manifest);
+		this._localeDirectory = path.join(__dirname,'locale');
+
+		this.currentLocale = this.currentLocaleCode_default;
+		this.log.info(`Running ${this.manifest.name}@${this.manifest.version}`);
+	}
 }
-module.exports = DiddleEngine;</code></pre>
+module.exports = LocaleManager;</code></pre>
         </article>
     </section>
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DiddleEngine - Documentation</title>
+    <title>ConfigurationManager - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">DiddleEngine</h1>
+    <h1 class="page-title">ConfigurationManager</h1>
     
 
     
@@ -42,10 +42,8 @@
 <header>
     
         <h2>
-        DiddleEngine
+        ConfigurationManager
         </h2>
-        
-            <div class="class-description"><p>diddle.js Engine</p></div>
         
     
 </header>
@@ -57,94 +55,13 @@
 <div class="section-method">
 
     
-    <h2>Constructor</h2>
-    
 
-    <h4 class="name" id="DiddleEngine"><span class="type-signature"></span>new DiddleEngine<span class="signature">(diddleconfig, debug)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="ConfigurationManager"><span class="type-signature"></span>new ConfigurationManager<span class="signature">(diddle, _config)</span><span class="type-signature"></span></h4>
 
     
 
 
 
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>manifest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="EngineScript.html#.manifest">EngineScript.manifest</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>startTimestamp</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)</p></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
 
 
 
@@ -178,7 +95,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line17">line 17</a>
+        <a href="configman.js.html">configman.js</a>, <a href="configman.js.html#line33">line 33</a>
     </li></ul></dd>
     
 
@@ -222,13 +139,13 @@
 
         <tr>
             
-                <td class="name"><code>diddleconfig</code></td>
+                <td class="name"><code>diddle</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>module:Engine.config</code></span>
+<span class="param-type"><code><a href="DiddleEngine.html">DiddleEngine</a></code></span>
 
 
             
@@ -239,7 +156,7 @@
             
 
             <td class="description last">
-                <p>User configuration, gets merged with <code>engine/diddle.config.default.json</code> to make sure that the required values are populated.</p>
+                
                 
             </td>
         </tr>
@@ -248,13 +165,13 @@
 
         <tr>
             
-                <td class="name"><code>debug</code></td>
+                <td class="name"><code>_config</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>bool</code></span>
+<span class="param-type"><code><a href="ConfigurationManager.html#.config">ConfigurationManager.config</a></code></span>
 
 
             
@@ -265,7 +182,7 @@
             
 
             <td class="description last">
-                <p>Wether to enable debug logging</p>
+                
                 
             </td>
         </tr>
@@ -294,6 +211,17 @@
     </div>
 
     
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="EngineScript.html">EngineScript</a></li>
+    </ul>
+
+
+    
 
     
 
@@ -304,13 +232,19 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
-<div class="section-members">
-<h4 class="name" id="config"><span class="type-signature"></span>config<span class="type-signature"> :<a href="ConfigurationManager.html">ConfigurationManager</a></span></h4>
+<div class="section-method">
 
+    
+
+    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">()</span><span class="type-signature"> &rarr; {<a href="ConfigurationManager.html#.config">ConfigurationManager.config</a>}</span></h4>
+
+    
 
 
 
@@ -347,7 +281,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line61">line 61</a>
+        <a href="configman.js.html">configman.js</a>, <a href="configman.js.html#line55">line 55</a>
     </li></ul></dd>
     
 
@@ -360,30 +294,216 @@
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code><a href="ConfigurationManager.html">ConfigurationManager</a></code></span>
 
 
-        </li>
-    </ul>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code><a href="ConfigurationManager.html#.config">ConfigurationManager.config</a></code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
 
 
 
 </div>
+        
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
 
         
-            
+                
 <div class="section-members">
-<h4 class="name" id="discord"><span class="type-signature"></span>discord<span class="type-signature"> :<a href="DiscordWrapper.html">DiscordWrapper</a></span></h4>
+<h4 class="name" id=".config">config</h4>
 
 
 
 
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>disable</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>bool</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>discord</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="ConfigurationManager.html#.discordconfig">ConfigurationManager.discordconfig</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>locale</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="LocaleManager.html#.LocaleCode">LocaleManager.LocaleCode</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>scripts_directory</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>debug</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>bool</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"></td>
+        </tr>
+
+        
+
+    
+    </tbody>
+</table>
 
 
 
@@ -417,7 +537,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line65">line 65</a>
+        <a href="configman.js.html">configman.js</a>, <a href="configman.js.html#line18">line 18</a>
     </li></ul></dd>
     
 
@@ -430,30 +550,124 @@
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code><a href="DiscordWrapper.html">DiscordWrapper</a></code></span>
-
-
-        </li>
-    </ul>
-
 
 
 
 
 </div>
 
-        
             
+                
 <div class="section-members">
-<h4 class="name" id="locale"><span class="type-signature"></span>locale<span class="type-signature"> :<a href="LocaleManager.html">LocaleManager</a></span></h4>
+<h4 class="name" id=".discordconfig">discordconfig</h4>
 
 
 
 
+
+
+
+
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>token</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Discord Bot Token, If It's a User Token discord.js will reject it</p></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>admin</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>Array.&lt;string></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Discord User ID Snowflakes</p></td>
+        </tr>
+
+        
+
+    
+
+        <tr>
+            
+                <td class="name"><code>prefix</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Command Prefix</p></td>
+        </tr>
+
+        
+
+    
+    </tbody>
+</table>
 
 
 
@@ -487,7 +701,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line57">line 57</a>
+        <a href="configman.js.html">configman.js</a>, <a href="configman.js.html#line26">line 26</a>
     </li></ul></dd>
     
 
@@ -500,167 +714,13 @@
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code><a href="LocaleManager.html">LocaleManager</a></code></span>
-
-
-        </li>
-    </ul>
-
 
 
 
 
 </div>
 
-        
             
-<div class="section-members">
-<h4 class="name" id="manifest"><span class="type-signature"></span>manifest<span class="type-signature"> :<a href="EngineScript.html#.manifest">EngineScript.manifest</a></span></h4>
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line21">line 21</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code><a href="EngineScript.html#.manifest">EngineScript.manifest</a></code></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
-        
-            
-<div class="section-members">
-<h4 class="name" id="scripts"><span class="type-signature"></span>scripts<span class="type-signature"> :<a href="ScriptManager.html">ScriptManager</a></span></h4>
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line69">line 69</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code><a href="ScriptManager.html">ScriptManager</a></code></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
-        
-    
-
-    
-
     
 
     
