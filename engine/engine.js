@@ -6,22 +6,20 @@ const EventManager = require("./eventman");
 const DiscordWrapper = require("./discord");
 /**
  * @projectname diddle.js
- * @version 0.3b
+ * @version 0.4b
  */
 /**
  * diddle.js Engine
  * @class
- * @file engine/engine.js
- * @property {module:EngineScript.manifest} manifest
+ * @property {EngineScript.manifest} manifest
  * @property {number} startTimestamp startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
  */
 class DiddleEngine {
-
 	/**
-	 * @type EngineScript.manifest
+	 * @type {EngineScript.manifest}
 	 */
 	manifest = {
-		version: '0.3b',
+		version: '0.4b',
 		name: 'diddle.js/engine',
 		requires: [
 			'diddle.js/loader@0.1b',
@@ -54,19 +52,19 @@ class DiddleEngine {
 		})
 	}
 	/**
-	 * @type {module:LocaleManager}
+	 * @type {LocaleManager}
 	 */
 	locale = null;
 	/**
-	 * @type {module:ConfigurationManager}
+	 * @type {ConfigurationManager}
 	 */
 	config = null;
 	/**
-	 * @type {module:DiscordWrapper}
+	 * @type {DiscordWrapper}
 	 */
 	discord = null;
 	/**
-	 * @type {module:ScriptManager}
+	 * @type {ScriptManager}
 	 */
 	scripts = null;
 
