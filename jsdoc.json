@@ -16,7 +16,7 @@
 	},
 	"opts": {
 		"recurse": true,
-		"destination": ".",
+		"destination": "./docs/stable",
 		"template": "./node_modules/minami"
 	},
 	"plugins": [
