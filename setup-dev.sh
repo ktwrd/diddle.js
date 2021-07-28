@@ -32,5 +32,5 @@ echo "% npm i --include=dev"
 npm i --include=dev
 
 echo "\n# [docs] Installing git submodules"
-git submodule add -b $BRANCH_DEV -f $REPO.git source-$BRANCH_DEV
+git submodule add -b $BRANCH_DEV -f $REPO.git source-dev
 git submodule add -b $BRANCH_STABLE -f $REPO.git source
