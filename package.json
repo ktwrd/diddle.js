@@ -1,0 +1,21 @@
+{
+  "name": "docs",
+  "version": "1.0.0",
+  "scripts": {
+    "build-dev": "jsdoc -c jsdoc.dev.json",
+    "build": "jsdoc -c jsdoc.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jylescoad-ward/diddle.js.git"
+  },
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/jylescoad-ward/diddle.js/issues"
+  },
+  "homepage": "https://diddle.js.org",
+  "devDependencies": {
+    "jsdoc": "^3.6.7",
+    "minami": "^1.2.3"
+  }
+}
