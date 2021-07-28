@@ -118,5 +118,5 @@ dist
 .pnp.*
 
 #source/
-source/
-source-dev/
+source
+source-dev
