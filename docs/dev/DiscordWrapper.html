@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>engine.js - Documentation</title>
+    <title>DiscordWrapper - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,123 +29,333 @@
 
 <div id="main">
     
-    <h1 class="page-title">engine.js</h1>
+    <h1 class="page-title">DiscordWrapper</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>const ScriptManager = require("./scriptman.js");
-const LogUtil = require("./logger.js")
-const LocaleManager = require("./locale.js");
-const ConfigurationManager = require("./configman.js");
-const EventManager = require("./eventman");
-const DiscordWrapper = require("./discord");
-/**
- * @projectname diddle.js
- * @version 0.4b
- */
-/**
- * diddle.js Engine
- * @class
- * @property {EngineScript.manifest} manifest
- * @property {number} startTimestamp startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
- */
-class DiddleEngine {
-	/**
-	 * @type {EngineScript.manifest}
-	 */
-	manifest = {
-		version: '0.4b',
-		name: 'diddle.js/engine',
-		requires: [
-			'diddle.js/loader@0.1b',
-			'diddle.js/scriptman@0.1b',
-			'diddle.js/configman@0.1b',
-			'diddle.js/locale@0.1b',
-			'diddle.js/eventman@0.1b',
-			'diddle.js/discord@0.1b'
-		]
-	}
+        <h2>
+        DiscordWrapper
+        </h2>
+        
+    
+</header>
 
-	startTimestamp = Date.now()
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
 
-	_eventchannels = {
-		/*
-		&lt;channel>: function[]
-		*/
-	};
+    
+
+    <h4 class="name" id="DiscordWrapper"><span class="type-signature"></span>new DiscordWrapper<span class="signature">(diddle)</span><span class="type-signature"></span></h4>
+
+    
 
 
-	/** @private */
-	_isJSON(obj) {
-		return new Promise((res) => {
-			try {
-				let t = JSON.stringify(obj);
-			} catch(e) {
-				res(false);
-			}
-			res(true);
-		})
-	}
-	/**
-	 * @type {LocaleManager}
-	 */
-	locale = null;
-	/**
-	 * @type {ConfigurationManager}
-	 */
-	config = null;
-	/**
-	 * @type {DiscordWrapper}
-	 */
-	discord = null;
-	/**
-	 * @type {ScriptManager}
-	 */
-	scripts = null;
 
-	/** @private */
-	_wrapperPopulate() {
-		var diddle = this;
-		this.locale = new LocaleManager(diddle);
-		this.config = new ConfigurationManager(diddle,this._config);
-		this.discord = new DiscordWrapper(diddle);
-		this.scripts = new ScriptManager(diddle);
 
-		this.config._ready();
-		this.scripts._ready();
-		this.discord._ready();
-	}
-	/**
-	 * @constructor
-	 * @param {module:Engine.config} diddleconfig User configuration, gets merged with &lt;code>engine/diddle.config.default.json&lt;/code> to make sure that the required values are populated.
-	 * @param {bool} debug Wether to enable debug logging
-	 */
-	constructor(diddleconfig,debug) {
-		this.debug = debug;
-		if (!this._isJSON(diddleconfig)) {
-			throw new Error("Configuration is not JSON");
-		}
-		this.event = new EventManager(this);
-		this.log = new LogUtil(this,this.manifest.name);
 
-		this._config = diddleconfig;
 
-		this.log = new LogUtil(this,"diddle.js/engine");
-		this.log.info(`Running ${this.manifest.name}@${this.manifest.version} ${this.debug ? '(Debug Mode Enabled)' : ''}`);
 
-		this._wrapperPopulate();
-	}
-		
-}
-module.exports = DiddleEngine;</code></pre>
-        </article>
-    </section>
+    <h5 class="subsection-title">Properties:</h5>
+
+    
+
+<table class="props">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>client</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>module:discordjs.Client</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last"><p>Discord.JS Client</p></td>
+        </tr>
+
+        
+
+    
+    </tbody>
+</table>
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="discord.js.html">discord.js</a>, <a href="discord.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>diddle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="DiddleEngine.html">DiddleEngine</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="EngineScript.html">EngineScript</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="_ready"><span class="type-signature">(async) </span>_ready<span class="signature">()</span><span class="type-signature"></span></h4>
+
+    
+
+
+
+<div class="description">
+    <p>Gets called when DiscordWrapper needs to be ready for other scripts to use.</p>
+</div>
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="discord.js.html">discord.js</a>, <a href="discord.js.html#line22">line 22</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 

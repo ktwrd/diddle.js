@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DiddleEngine - Documentation</title>
+    <title>LocaleManager - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">DiddleEngine</h1>
+    <h1 class="page-title">LocaleManager</h1>
     
 
     
@@ -42,10 +42,8 @@
 <header>
     
         <h2>
-        DiddleEngine
+        LocaleManager
         </h2>
-        
-            <div class="class-description"><p>diddle.js Engine</p></div>
         
     
 </header>
@@ -57,94 +55,17 @@
 <div class="section-method">
 
     
-    <h2>Constructor</h2>
-    
 
-    <h4 class="name" id="DiddleEngine"><span class="type-signature"></span>new DiddleEngine<span class="signature">(diddleconfig, debug)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="LocaleManager"><span class="type-signature"></span>new LocaleManager<span class="signature">(diddle)</span><span class="type-signature"></span></h4>
 
     
 
 
 
+<div class="description">
+    <p>Used for managing localization files stored in <code>engine/locale/</code></p>
+</div>
 
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>manifest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="EngineScript.html#.manifest">EngineScript.manifest</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-
-        <tr>
-            
-                <td class="name"><code>startTimestamp</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>number</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p>startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)</p></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
 
 
 
@@ -178,7 +99,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line17">line 17</a>
+        <a href="locale.js.html">locale.js</a>, <a href="locale.js.html#line27">line 27</a>
     </li></ul></dd>
     
 
@@ -222,13 +143,13 @@
 
         <tr>
             
-                <td class="name"><code>diddleconfig</code></td>
+                <td class="name"><code>diddle</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type"><code>module:Engine.config</code></span>
+<span class="param-type"><code><a href="DiddleEngine.html">DiddleEngine</a></code></span>
 
 
             
@@ -239,33 +160,7 @@
             
 
             <td class="description last">
-                <p>User configuration, gets merged with <code>engine/diddle.config.default.json</code> to make sure that the required values are populated.</p>
                 
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>debug</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>bool</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                <p>Wether to enable debug logging</p>
                 
             </td>
         </tr>
@@ -304,13 +199,19 @@
     
 
     
-        <h3 class="subsection-title">Members</h3>
+
+    
+        <h3 class="subsection-title">Methods</h3>
 
         
             
-<div class="section-members">
-<h4 class="name" id="config"><span class="type-signature"></span>config<span class="type-signature"> :<a href="ConfigurationManager.html">ConfigurationManager</a></span></h4>
+<div class="section-method">
 
+    
+
+    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(_entry)</span><span class="type-signature"> &rarr; {LocaleData}</span></h4>
+
+    
 
 
 
@@ -347,7 +248,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line61">line 61</a>
+        <a href="locale.js.html">locale.js</a>, <a href="locale.js.html#line88">line 88</a>
     </li></ul></dd>
     
 
@@ -360,27 +261,109 @@
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<span class="param-type"><code><a href="ConfigurationManager.html">ConfigurationManager</a></code></span>
+                <td class="name"><code>_entry</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="LocaleManager.html#.LocaleCode">LocaleManager.LocaleCode</a></code></span>
 
 
-        </li>
-    </ul>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Locale Code to Get. If <code>undefined</code> will return the Current Locale.</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>LocaleData</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
 
 
 
 </div>
-
         
             
-<div class="section-members">
-<h4 class="name" id="discord"><span class="type-signature"></span>discord<span class="type-signature"> :<a href="DiscordWrapper.html">DiscordWrapper</a></span></h4>
+<div class="section-method">
 
+    
+
+    <h4 class="name" id="switch"><span class="type-signature"></span>switch<span class="signature">(_localeName)</span><span class="type-signature"></span></h4>
+
+    
 
 
 
@@ -417,7 +400,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line65">line 65</a>
+        <a href="locale.js.html">locale.js</a>, <a href="locale.js.html#line74">line 74</a>
     </li></ul></dd>
     
 
@@ -430,29 +413,96 @@
 
 
 
-    <h5>Type:</h5>
-    <ul>
-        <li>
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
             
-<span class="param-type"><code><a href="DiscordWrapper.html">DiscordWrapper</a></code></span>
+                <td class="name"><code>_localeName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="LocaleManager.html#.LocaleCode">LocaleManager.LocaleCode</a></code></span>
 
 
-        </li>
-    </ul>
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Locale Code to Switch to. If <code>undefined</code> will switch to the Default Locale (<code>en_US</code>)</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
 
 
 </div>
+        
+    
+
+    
+        <h3 class="subsection-title">Type Definitions</h3>
 
         
-            
+                
 <div class="section-members">
-<h4 class="name" id="locale"><span class="type-signature"></span>locale<span class="type-signature"> :<a href="LocaleManager.html">LocaleManager</a></span></h4>
+<h4 class="name" id=".LocaleCode">LocaleCode</h4>
 
 
 
+
+<div class="description">
+    <p>Locale Codes must be formatted as <code>[<a href="https://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1</a>]_[<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a>]</code>. So, for example the Default Locale Code is <code>en_US</code></p>
+</div>
 
 
 
@@ -487,7 +537,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line57">line 57</a>
+        <a href="locale.js.html">locale.js</a>, <a href="locale.js.html#line21">line 21</a>
     </li></ul></dd>
     
 
@@ -504,7 +554,7 @@
     <ul>
         <li>
             
-<span class="param-type"><code><a href="LocaleManager.html">LocaleManager</a></code></span>
+<span class="param-type"><code>string</code></span>
 
 
         </li>
@@ -516,151 +566,7 @@
 
 </div>
 
-        
             
-<div class="section-members">
-<h4 class="name" id="manifest"><span class="type-signature"></span>manifest<span class="type-signature"> :<a href="EngineScript.html#.manifest">EngineScript.manifest</a></span></h4>
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line21">line 21</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code><a href="EngineScript.html#.manifest">EngineScript.manifest</a></code></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
-        
-            
-<div class="section-members">
-<h4 class="name" id="scripts"><span class="type-signature"></span>scripts<span class="type-signature"> :<a href="ScriptManager.html">ScriptManager</a></span></h4>
-
-
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="engine.js.html">engine.js</a>, <a href="engine.js.html#line69">line 69</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-    <h5>Type:</h5>
-    <ul>
-        <li>
-            
-<span class="param-type"><code><a href="ScriptManager.html">ScriptManager</a></code></span>
-
-
-        </li>
-    </ul>
-
-
-
-
-
-</div>
-
-        
-    
-
-    
-
     
 
     
