@@ -18,6 +18,17 @@ function extend(target) {
 	return target;
 }
 
+/**
+ * @typedef LocaleManager.LocaleCode
+ * @type {string}
+ * @description Locale Codes must be formatted as <code>[<a href="https://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1</a>]_[<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a>]</code>. So, for example the Default Locale Code is <code>en_US</code>
+ */
+
+/**
+ * @class LocaleManager
+ * @description Used for managing localization files stored in <code>engine/locale/</code>
+ * @argument {DiddleEngine} diddle
+ */
 class LocaleManager extends EngineScript {
 	
 	cache = {
@@ -56,6 +67,10 @@ class LocaleManager extends EngineScript {
 		this.currentLocale = newLocale;
 		return newLocale;
 	}
+
+	/**
+	 * @param {LocaleManager.LocaleCode} _localeName Locale Code to Switch to. If <code>undefined</code> will switch to the Default Locale (<code>en_US</code>)
+	 */
 	switch(_localeName) {
 		if (_localeName == undefined) throw new Error("Locale is undefined");
 		this.currentLocaleCode = _localeName;
@@ -65,7 +80,13 @@ class LocaleManager extends EngineScript {
 		this.currentLocale = this.cache[_localeName];
 		this.log.debug(`switched locale to; ${this.currentLocaleCode}`);
 	}
+
+	/**
+	 * @param {LocaleManager.LocaleCode} _entry Locale Code to Get. If <code>undefined</code> will return the Current Locale.
+	 * @returns {LocaleData}
+	 */
 	get(_entry) {
+		_entry = _entry || this.currentLocaleCode;
 		return this.currentLocale[_entry];
 	}
 	constructor(diddle) {

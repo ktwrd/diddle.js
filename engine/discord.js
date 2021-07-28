@@ -1,4 +1,3 @@
-const EventManager = require("./eventman")
 const discord = require("discord.js");
 const DiscordEvents = require("./discord-events.json");
 const EngineScript = require("./enginescript");
@@ -8,8 +7,18 @@ const manifest = {
 	name: 'diddle.js/discord'
 }
 
-class DiscordWrapper extends EngineScript{
 
+/**
+ * @class DiscordWrapper
+ * @property {module:discordjs.Client} client Discord.JS Client
+ * @param {DiddleEngine} diddle 
+ * @extends {EngineScript}
+ */
+class DiscordWrapper extends EngineScript{
+	/**
+	 * @memberof DiscordWrapper
+	 * @description Gets called when DiscordWrapper needs to be ready for other scripts to use.
+	 */
 	async _ready() {
 		this.log.info("connecting to discord");
 		try {
@@ -21,6 +30,11 @@ class DiscordWrapper extends EngineScript{
 		this.log.info("connected to discord as "+this.client.user.tag);
 	}
 	
+	/** @function
+	 * @name msg
+	 * @arg {module:discordjs.GuildMessage} _message Discord Message to Inject the Command, Prefix, and Arguments into.
+	 * @private
+	 */
 	msg(_message) {
 		_message.prefix = this.diddle.config.get().discord.prefix;
 		_message.command = _message.content.replace(_message.prefix,"").split(' ')[0];
@@ -36,7 +50,17 @@ class DiscordWrapper extends EngineScript{
 		this.event = this.diddle.event;
 		this.cmd_prefix = this.diddle.config.get().discord.prefix;
 		for ( let i = 0; i < DiscordEvents.length; i++ ) {
-			this.client.on(DiscordEvents[i],d => this.event.call(`discord-${DiscordEvents[i]}`,d));
+			switch(DiscordEvents[i]) {
+				case "message":
+					this.client.on(DiscordEvents[i],(d) => {
+						var msg = this.msg(d);
+						this.event.call(`discord-${DiscordEvents[i]}`,msg)
+					});
+					break;
+				default:
+					this.client.on(DiscordEvents[i],d => this.event.call(`discord-${DiscordEvents[i]}`,d));
+					break;
+			}
 		}
 	}
 	

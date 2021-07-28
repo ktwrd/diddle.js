@@ -6,9 +6,16 @@ const manifest = {
 	version: '0.1b',
 	name: 'diddle.js/scriptman'
 }
-
+/**
+ * @class ScriptManager
+ * @extends EngineScript
+ * @param {DiddleEngine} diddle
+ */
 class ScriptManager extends EngineScript{
 
+	/**
+	 * Fetch All Valid scripts in the specifiyed directory in {DiddleEngine.config.cache}
+	 */
 	_fetchScripts() {
 		var config = this.diddle.config.get();
 
@@ -153,8 +160,6 @@ class ScriptManager extends EngineScript{
 	}
 
 	async _parseEvents() {
-		this.log.info("parsing scripts");
-
 		for ( let i = 0; i < this.scripts.length; i++ ) {
 			var c_script = this.scripts[i];
 
@@ -164,6 +169,9 @@ class ScriptManager extends EngineScript{
 		this.diddle.event.call('scripts-ready');
 	}
 
+	/**
+	 * @param {EngineScript} script Script to Parse
+	 */
 	_parseEventScript(script) {
 		if (script.manifest.type != 'event') return;
 		if (script.event == undefined) return this.log.error(this.diddle.locale.get("placeholder.scriptEventUndefined").replace("%s",script.manifest.filename));
