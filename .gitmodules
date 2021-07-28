@@ -1,4 +1,4 @@
-[submodule "Source"]
-	path = "source"
-	url = "https://github.com/jylescoad-ward/diddle.js.git"
-	branch = "stable"
+[submodule "diddle.js"]
+	path = source
+	url = https://github.com/jylescoad-ward/diddle.js
+	branch = stable
