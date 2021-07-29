@@ -1,40 +1,67 @@
-#!/bin/sh
+#!/bin/bash
 REPO="https://github.com/jylescoad-ward/diddle.js"
 BRANCH_DEV="dev"
 BRANCH_STABLE="stable"
 BRANCH_DOCS="docs"
-echo "% mkdir diddle.js/"
+
+printdt() {
+	printf "\n\033[1;07m$1\033[0m\n"
+}
+
+printdt "$ mkdir diddle.js"
 mkdir diddle.js/
 cd diddle.js/
-echo "% git clone $REPO -b $BRANCH_DEV $BRANCH_DEV"
+
+printdt "$ git clone $REPO -b $BRANCH_DEV $BRANCH_DEV"
 git clone $REPO -b $BRANCH_DEV $BRANCH_DEV
-echo "% git clone $REPO -b $BRANCH_DOCS $BRANCH_DOCS"
+printdt "$ git clone $REPO -b $BRANCH_DOCS $BRANCH_DOCS"
 git clone $REPO -b $BRANCH_DOCS $BRANCH_DOCS
-echo "% cd dev"
+
+#  ==== Install Modules
+printdt "$ cd dev"
 cd dev
-echo "# [dev]  Installing Modules"
-echo "% npm i --include=dev"
+printdt "# [dev]  Installing Modules"
+printdt "$ npm i --include=dev"
 npm i --include=dev
 
-echo "% npm link"
+#  ==== Link diddle.js
+printdt "$ npm link"
 if npm link; then
-	echo "Linked 'diddle.js' as local module"
+	printdt "Linked 'diddle.js' as local module"
 else
-	echo "Need superuser permissions to link module"
-	echo "% sudo npm link"
+	printdt "Need superuser permissions to link module"
+	printdt "$ sudo npm link"
 	sudo npm link
 fi
 
-echo "% cd .. && cd docs"
-cd .. && cd docs
-echo "# [docs] Installing Modules"
-echo "% npm i --include=dev"
-npm i --include=dev
 
-echo "# [docs] Installing git submodules"
-#echo "% git submodule add ./source/"
-#git submodule add ./source/
-#echo "% git submodule add ./source-dev/"
-#git submodule add ./source-dev/
-git submodule add -b $BRANCH_DEV -f $REPO.git source-dev
-git submodule add -b $BRANCH_STABLE -f $REPO.git source
+#  ==== Create Script Testing Enviroment
+printdt "# creating script testing enviroment"
+printdt "$ cd .. && mkdir test && cd test"
+cd ..
+mkdir test
+cd test
+#  ==== Link diddle.js dev
+printdt "$ npm link diddle.js"
+if npm link diddle.js; then
+	printdt "Linked development diddle.js"
+else
+	printdt "$ sudo npm link diddle.js"
+	sudo npm link diddle.js
+	printdt "[sudo] Linked development diddle.js"
+fi
+#  ==== Initialize diddle.js
+printdt "$ diddlejs init"
+#diddlejs init
+
+#  ==== Initalize Submodules
+printdt "# [docs] Installing git submodules"
+printdt "$ git submodule update --init --recursive ."
+git submodule update --init --recursive .
+
+#  ==== Install Modules
+printdt "$ cd .. && cd docs"
+cd .. && cd docs
+printdt "# [docs] Installing Modules"
+printdt "$ npm i --include=dev"
+npm i --include=dev
