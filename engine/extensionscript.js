@@ -1,4 +1,4 @@
-const diddle = require("./engine")
+const EngineScript = require("./enginescript")
 const crypto = require("crypto")
 
 /**
@@ -6,9 +6,8 @@ const crypto = require("crypto")
  * @property {string} _ScriptUID MD5 Sum of the Extensions Manifest Name and Version seperated by <code>@</code>
  * @extends {EngineScript}
  */
-class ExtensionScript extends diddle.EngineScript {
+class ExtensionScript extends EngineScript {
 	/**
-	 * 
 	 * @param {DiddleEngine} diddle 
 	 * @param {EngineScript.manifest} manifest 
 	 */
