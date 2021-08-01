@@ -4,6 +4,7 @@ const LocaleManager = require("./locale.js");
 const ConfigurationManager = require("./configman.js");
 const EventManager = require("./eventman");
 const DiscordWrapper = require("./discord");
+const EngineExtensionManager = require("./extensionmanager.js");
 /**
  * @projectname diddle.js
  * @version 0.4b
@@ -19,7 +20,7 @@ class DiddleEngine {
 	 * @type {EngineScript.manifest}
 	 */
 	manifest = {
-		version: '0.4b',
+		version: '0.5b',
 		name: 'diddle.js/engine',
 		requires: [
 			'diddle.js/loader@0.1b',
@@ -27,7 +28,8 @@ class DiddleEngine {
 			'diddle.js/configman@0.1b',
 			'diddle.js/locale@0.1b',
 			'diddle.js/eventman@0.1b',
-			'diddle.js/discord@0.1b'
+			'diddle.js/discord@0.1b',
+			'diddle.js/extman@0.1b'
 		]
 	}
 
@@ -75,8 +77,10 @@ class DiddleEngine {
 		this.config = new ConfigurationManager(diddle,this._config);
 		this.discord = new DiscordWrapper(diddle);
 		this.scripts = new ScriptManager(diddle);
+		this.ext = new EngineExtensionManager(diddle);
 
 		this.config._ready();
+		this.ext._ready();
 		this.scripts._ready();
 		this.discord._ready();
 	}
@@ -100,6 +104,17 @@ class DiddleEngine {
 
 		this._wrapperPopulate();
 	}
-		
 }
-module.exports = DiddleEngine;
+
+module.exports = {
+	engine: DiddleEngine,
+	ScriptManager: require("./scriptman.js"),
+	Logger: require("./logger"),
+	LocaleManager: require("./locale"),
+	Configuration: require("./configman"),
+	EventManager: require("./eventman"),
+	EngineScript: require("./enginescript"),
+	Discord: require("./discord"),
+	ExtensionManager: require("./extensionmanager"),
+	Extension: require("./extensionscript")
+}

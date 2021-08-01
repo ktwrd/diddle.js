@@ -23,7 +23,7 @@ class ScriptManager extends EngineScript{
 
 		this.log.info(`fetching scripts...`);
 
-		var scriptsdirectory = config.scripts_directory;
+		var scriptsdirectory = path.resolve(config.scripts);
 
 		if (!fs.existsSync(scriptsdirectory)) {
 			try {
@@ -57,9 +57,10 @@ class ScriptManager extends EngineScript{
 		}
 		for ( let j = 0; j < scripts_filenames.length; j++ ) {
 			try {
-				let currentscript = require(`${scriptsdirectory}${scripts_filenames[j]}`);
-
+				let scriptlocation = path.join(path.resolve(config.scripts),scripts_filenames[j])
 				let currentscript_fname = scripts_filenames[j];
+				let currentscript = require(scriptlocation);
+
 
 				var ValidScript = { };
 
@@ -180,8 +181,8 @@ class ScriptManager extends EngineScript{
 
 		for (let i = 0; i < scriptEvents.length; i++) {
 			let event = scriptEvents[i];
-			if (event[0] == 'onload') {
-				this.diddle.event.on('scripts-onload',event[1]);
+			if (event[0] == 'ready') {
+				this.diddle.event.on('scripts-ready',event[1]);
 			} else {
 				this.diddle.event.on(event[0],event[1]);
 			}

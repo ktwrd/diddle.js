@@ -3,7 +3,7 @@ module.exports = {
 	version: '0.1b',
 	name: 'diddle.js/loader',
 	requires: [
-		'diddle.js/engine@0.1b'
+		'diddle.js/engine@0.5b'
 	]
 }
 
@@ -102,4 +102,4 @@ CustomConfigData.scripts_directory = path.join(path.resolve(CustomConfigData.scr
 
 var DoDebug = LaunchParameters.debug || LaunchParameters.developer || CustomConfigData.developer || CustomConfigData.debug || false;
 
-const diddleInstance = new (require("."))(CustomConfigData, DoDebug);
+const diddleInstance = new (require(".")).engine(CustomConfigData, DoDebug);
