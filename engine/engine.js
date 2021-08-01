@@ -4,7 +4,7 @@ const LocaleManager = require("./locale.js");
 const ConfigurationManager = require("./configman.js");
 const EventManager = require("./eventman");
 const DiscordWrapper = require("./discord");
-const EngineExtensionManager = require("./extensions.js");
+const EngineExtensionManager = require("./extensionmanager.js");
 /**
  * @projectname diddle.js
  * @version 0.4b
@@ -80,9 +80,9 @@ class DiddleEngine {
 		this.ext = new EngineExtensionManager(diddle);
 
 		this.config._ready();
+		this.ext._ready();
 		this.scripts._ready();
 		this.discord._ready();
-		this.ext._ready();
 	}
 	/**
 	 * @constructor
