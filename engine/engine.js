@@ -20,7 +20,7 @@ class DiddleEngine {
 	 * @type {EngineScript.manifest}
 	 */
 	manifest = {
-		version: '0.4b',
+		version: '0.5b',
 		name: 'diddle.js/engine',
 		requires: [
 			'diddle.js/loader@0.1b',
