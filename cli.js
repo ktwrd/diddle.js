@@ -1,11 +1,4 @@
-#!node
-module.exports = {
-	version: '0.1b',
-	name: 'diddle.js/loader',
-	requires: [
-		'diddle.js/engine@0.5b'
-	]
-}
+#!/usr/bin/env node
 
 const fs = require("fs");
 const path = require("path");
