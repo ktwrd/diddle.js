@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>EventManager - Documentation</title>
+    <title>store.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,529 +29,165 @@
 
 <div id="main">
     
-    <h1 class="page-title">EventManager</h1>
-    
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>
-        EventManager
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="EventManager"><span class="type-signature"></span>new EventManager<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>manifest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>EngineScript.Manifest</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eventman.js.html">eventman.js</a>, <a href="eventman.js.html#line7">line 7</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="call"><span class="type-signature"></span>call<span class="signature">(_channel, _data)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Invoke Event to the specified channel.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eventman.js.html">eventman.js</a>, <a href="eventman.js.html#line38">line 38</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>_channel</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>_data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>*</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="on"><span class="type-signature"></span>on<span class="signature">(_channel, &hellip;_callbacks)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Listen to an event on specified channel.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eventman.js.html">eventman.js</a>, <a href="eventman.js.html#line24">line 24</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>_channel</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>_callbacks</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>function</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">store.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const EngineScript = require("./enginescript");
+const fs = require("fs");
+const path = require("path")
+const toolbox = require("tinytoolbox")
+
+const manifest = {
+	name: 'diddle.js/store',
+	version: '0.1'
+};
+
+/**
+ * @property {string} filename The filename for the object currently accessing
+ * @property {string} directory Directory where the file exists
+ * @property {string} location Absolute file location
+ * @property {bool} hasUpdated If true there are pending changes to sync.
+ */
+class StorageObject {
+	hasUpdated = false;
+
+	/**
+	 * 
+	 * @param {string} _filename A Valid JSON Filename
+	 * @param {string} _directory A Valid Directory
+	 */
+	constructor(_filename,_directory) {
+		this.filename = _filename;
+		this.directory = _directory;
+		this.location = path.join(_directory,_filename);
+
+		if (!fs.existsSync(_directory)) {
+			fs.mkdirSync(_directory,{recursive:true});
+		}
+
+		this.sync()
+		if (this._data.meta.id.length &lt; 1) {
+			this.resetID();
+		}
+		this.sync()
+
+	}
+
+	/**
+	 * @description Sync data from the StorageObject to the File if there are changes or sync the File to this StorageObject if there are no pending changes.
+	 */
+	sync() {
+		try {
+			if (!fs.existsSync(this.location)) {
+				fs.writeFileSync(this.location,JSON.stringify(this._data,null,'\t'));
+			}
+			if (this.hasUpdated) {
+				fs.writeFileSync(this.location,JSON.stringify(this._data,null,'\t'))
+			} else {
+				this._data = require(this.location);
+			}
+			this.hasUpdated = false;
+		} catch(error) {
+			console.error(`\x1b[41m====== [FATAL STORAGE ERROR] ======\x1b[0m\n${this.location}\n`,error,`\n\x1b[41m====== ##################### ======\x1b[0m`)
+			return error;
+		}
+	}
+
+	_data = {
+		meta: {
+			name: '',
+			id: '',
+		},
+		content: null
+	}
+
+	/**
+	 * @description Reset the storage objects Unique Identifier
+	 */
+	resetID() {
+		this._data.meta.id = toolbox.stringGen(16,3);
+		this.hasUpdated = true;
+	}
+	/**
+	 * 
+	 * @returns {*} Data stored in &lt;code>_data.meta.content&lt;/code>
+	 */
+	get() {
+		return this._data.content;
+	}
+	/**
+	 * 
+	 * @param {*} data Set this StorageObjects content
+	 * @returns {*} &lt;code>_data.meta.content&lt;/code>
+	 */
+	set(data) {
+		this.hasUpdated = true;
+		this._data.content = data;
+		return this._data.content;
+	}
+}
+
+class StorageManager extends EngineScript {
+	/**
+	 * 
+	 * @param {DiddleEngine} diddle 
+	 */
+	constructor(diddle) {
+		super(diddle,manifest);
+	}
+
+	_ready() {
+		this.directory = path.resolve(this.diddle.config.get().data);
+
+		if (!fs.existsSync(this.directory)) {
+			try {
+				fs.mkdirSync(this.directory);
+			} catch (e) {
+				this.log.error(`failed to create data directory;\n${e.toString()}`);
+				process.exit(1);
+			}
+			this.log.debug(`created data directory`);
+		}
+
+		var files = fs.readdirSync(this.directory);
+
+		for (let i = 0; i &lt; files.length; i++) {
+			var fname = files[i];
+			this._cache.push(new StorageObject(fname,this.directory));
+		}
+	}
+
+	/** @type {StorageObject[]} */
+	_cache = []
+
+	/**
+	 * @description Fetch storage object with matching ID
+	 * @param {string} StorageID Get storage object with the matching Storage ID. When undefined &lt;code>StorageObject._cache&lt;/code> is returned
+	 * @returns {StorageObject}
+	 * @returns {StorageObject[]} Only when no parameters are passed
+	 */
+	get(StorageID) {
+		if (StorageID == undefined) return this._cache;
+		var res = this._cache.filter(s => s._data.meta.id == StorageID);
+		return res[0]
+	}
+
+	create(_name) {
+		let so = new StorageObject(`${_name}.json`,this.directory);
+		this._cache.push(so);
+		return so;
+	}
+}
+module.exports = StorageManager;</code></pre>
+        </article>
+    </section>
 
 
 

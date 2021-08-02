@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>EventManager - Documentation</title>
+    <title>StorageManager - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,7 +29,7 @@
 
 <div id="main">
     
-    <h1 class="page-title">EventManager</h1>
+    <h1 class="page-title">StorageManager</h1>
     
 
     
@@ -42,7 +42,7 @@
 <header>
     
         <h2>
-        EventManager
+        StorageManager
         </h2>
         
     
@@ -56,66 +56,12 @@
 
     
 
-    <h4 class="name" id="EventManager"><span class="type-signature"></span>new EventManager<span class="signature">()</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="StorageManager"><span class="type-signature"></span>new StorageManager<span class="signature">(diddle)</span><span class="type-signature"></span></h4>
 
     
 
 
 
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>manifest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>EngineScript.Manifest</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
 
 
 
@@ -149,7 +95,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eventman.js.html">eventman.js</a>, <a href="eventman.js.html#line7">line 7</a>
+        <a href="store.js.html">store.js</a>, <a href="store.js.html#line101">line 101</a>
     </li></ul></dd>
     
 
@@ -166,6 +112,58 @@
 
 
 
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>diddle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="DiddleEngine.html">DiddleEngine</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
 
 
 
@@ -197,6 +195,80 @@
     
 
     
+        <h3 class="subsection-title">Members</h3>
+
+        
+            
+<div class="section-members">
+<h4 class="name" id="_cache"><span class="type-signature"></span>_cache<span class="type-signature"> :Array.&lt;<a href="StorageObject.html">StorageObject</a>></span></h4>
+
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="store.js.html">store.js</a>, <a href="store.js.html#line127">line 127</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+    <h5>Type:</h5>
+    <ul>
+        <li>
+            
+<span class="param-type"><code>Array.&lt;<a href="StorageObject.html">StorageObject</a>></code></span>
+
+
+        </li>
+    </ul>
+
+
+
+
+
+</div>
+
+        
+    
 
     
         <h3 class="subsection-title">Methods</h3>
@@ -207,14 +279,14 @@
 
     
 
-    <h4 class="name" id="call"><span class="type-signature"></span>call<span class="signature">(_channel, _data)</span><span class="type-signature"></span></h4>
+    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(StorageID)</span><span class="type-signature"> &rarr; {<a href="StorageObject.html">StorageObject</a>|Array.&lt;<a href="StorageObject.html">StorageObject</a>>}</span></h4>
 
     
 
 
 
 <div class="description">
-    <p>Invoke Event to the specified channel.</p>
+    <p>Fetch storage object with matching ID</p>
 </div>
 
 
@@ -250,7 +322,7 @@
     
     <dt class="tag-source">Source:</dt>
     <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eventman.js.html">eventman.js</a>, <a href="eventman.js.html#line38">line 38</a>
+        <a href="store.js.html">store.js</a>, <a href="store.js.html#line135">line 135</a>
     </li></ul></dd>
     
 
@@ -294,7 +366,7 @@
 
         <tr>
             
-                <td class="name"><code>_channel</code></td>
+                <td class="name"><code>StorageID</code></td>
             
 
             <td class="type">
@@ -311,33 +383,7 @@
             
 
             <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>_data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>*</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
+                <p>Get storage object with the matching Storage ID. When undefined <code>StorageObject._cache</code> is returned</p>
                 
             </td>
         </tr>
@@ -359,186 +405,46 @@
 
 
 
+<div class="section-returns">
+<h5>Returns:</h5>
+<ul>
+        <li>
 
-
-</div>
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
         
-            
-<div class="section-method">
+<span class="param-type"><code><a href="StorageObject.html">StorageObject</a></code></span>
 
+
+    </dd>
+</dl>
+
+</li>
     
+        <li>
 
-    <h4 class="name" id="on"><span class="type-signature"></span>on<span class="signature">(_channel, &hellip;_callbacks)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Listen to an event on specified channel.</p>
-</div>
-
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code>Array.&lt;<a href="StorageObject.html">StorageObject</a>></code></span>
 
 
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eventman.js.html">eventman.js</a>, <a href="eventman.js.html#line24">line 24</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
+    </dd>
 </dl>
 
 
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>_channel</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>_callbacks</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>function</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
+<div class="param-desc">
+    <p>Only when no parameters are passed</p>
+</div>
+</li>
+    </ul>
+</div>
 
 
 

@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>EventManager - Documentation</title>
+    <title>extensionmanager.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,529 +29,132 @@
 
 <div id="main">
     
-    <h1 class="page-title">EventManager</h1>
-    
-
-    
-
-
-
-
-<section>
-
-<header>
-    
-        <h2>
-        EventManager
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="EventManager"><span class="type-signature"></span>new EventManager<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>manifest</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>EngineScript.Manifest</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eventman.js.html">eventman.js</a>, <a href="eventman.js.html#line7">line 7</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="call"><span class="type-signature"></span>call<span class="signature">(_channel, _data)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Invoke Event to the specified channel.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eventman.js.html">eventman.js</a>, <a href="eventman.js.html#line38">line 38</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>_channel</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>_data</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>*</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="on"><span class="type-signature"></span>on<span class="signature">(_channel, &hellip;_callbacks)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Listen to an event on specified channel.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="eventman.js.html">eventman.js</a>, <a href="eventman.js.html#line24">line 24</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-        <th>Attributes</th>
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>_channel</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>string</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-
-        <tr>
-            
-                <td class="name"><code>_callbacks</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>function</code></span>
-
-
-            
-            </td>
-
-            
-                <td class="attributes">
-                
-
-                
-
-                
-                    &lt;repeatable><br>
-                
-                </td>
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <h1 class="page-title">extensionmanager.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const EngineScript = require("./enginescript.js");
+const ExtensionScript = require("./extensionscript.js");
+const path = require("path")
+const fs = require("fs")
+
+const manifest = {
+	name: "diddle.js/extman",
+	version: "0.1b"
+}
+
+function isClass(v) {
+	return typeof v === 'function' &amp;&amp; /^\s*class\s+/.test(v.toString());
+}
+
+/**
+ * @class
+ * @property {string} cwd The absolute directory where all of the custom Engine Extensions live.
+ * @extends {EngineScript}
+ */
+class EngineExtensionManager extends EngineScript {
+	/**
+	 * @param {DiddleEngine} diddle 
+	 */
+	constructor(diddle) {
+		super(diddle,manifest);
+		// Current Working Directory
+		this.cwd = '';
+	}
+
+	_ready() {
+		this._fetchExtensions();
+	}
+
+	_store = {
+		/*
+		&lt;ScriptUID>: ExtensionScript
+		*/
+	}
+
+	/**
+	 * @description Add Custom Engine Extension
+	 * @param {ExtensionScript} extension 
+	 */
+	append(extension) {
+		this._store[extension._ScriptUID] = extension;
+	}
+
+	/**
+	 * @description Fetch Extension by its Unique Identifier
+	 * @param {string} extension 
+	 * @returns {ExtensionScript}
+	 */
+	getByUID(ScriptUID) {
+		if (this._store[ScriptUID] == undefined) throw new Error(this.diddle.locale.get("ScriptExt.FetchFail.ExtensionNotFound"))
+		return this._store[ScriptUID];
+	}
+
+	/**
+	 * @description Returns an Array of all Extensions that match the given name.
+	 * @param {*} ScriptName 
+	 * @returns {ExtensionScript[]}
+	 */
+	getByName(ScriptName) {
+		return this._score.filter(script => script.manifest.name == ScriptName);
+	}
+
+	_fetchExtensions() {
+		var config = this.diddle.config.get();
+
+		var timestamp_start = Date.now();
+
+		this.log.info(`fetching extensions...`);
+
+		this.cwd = path.resolve(config.extensions);
+
+		if (!fs.existsSync(this.cwd)) {
+			try {
+				fs.mkdirSync(this.cwd)
+			} catch(e) {
+				this.log.error(`cannot create extensions directory\n`,e);
+				process.exit(1);
+			}
+			this.log.info(`created extensions directory`);
+		}
+
+		
+		// Get Script Files
+		var ext_filenames,ext_filtered = [];
+
+		try {
+			ext_filenames = fs.readdirSync(this.cwd).filter(f => f.endsWith(".js"));
+		} catch(e) {
+			this.log.error(`cannot fetch extensions directory\n`,e);
+			process.exit(1);
+		}
+
+		for (let i = 0; i &lt; ext_filenames.length; i++) {
+			let current_filename = ext_filenames[i];
+			let current = require(path.join(this.cwd,current_filename));
+
+			if (isClass(current)) {
+				var ext = new current(this.diddle)
+				ext_filtered.push(ext);
+				this.log.debug(`loaded extension ${ext.manifest.name}@${ext.manifest.version} (${ext._ScriptUID})`)
+			} else {
+				this.log.error(`extension '${path.join(this.cwd,current_filename)}' cannot be constructed (isn't a class)`);
+				return;
+			}
+		}
+
+		this.log.info(`took ${Date.now() - timestamp_start}ms`);
+	}
+}
+module.exports = EngineExtensionManager;</code></pre>
+        </article>
+    </section>
 
 
 
