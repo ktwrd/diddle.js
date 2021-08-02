@@ -8,5 +8,6 @@
 	"locale": "en_US",
 	"scripts": "./scripts/",
 	"extensions": "./exts/",
+	"data": "./data/",
 	"debug": false
 }
