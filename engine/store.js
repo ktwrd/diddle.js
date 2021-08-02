@@ -120,7 +120,6 @@ class StorageManager extends EngineScript {
 		for (let i = 0; i < files.length; i++) {
 			var fname = files[i];
 			this._cache.push(new StorageObject(fname,this.directory));
-			console.log(fname)
 		}
 	}
 
