@@ -10,7 +10,7 @@ const path = require("path");
 const StorageManager = require("./store.js");
 /**
  * @projectname diddle.js
- * @version 0.1.1
+ * @version 0.1.2
  */
 /**
  * diddle.js Engine
