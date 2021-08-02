@@ -5,22 +5,25 @@ const ConfigurationManager = require("./configman.js");
 const EventManager = require("./eventman");
 const DiscordWrapper = require("./discord");
 const EngineExtensionManager = require("./extensionmanager.js");
+
+const path = require("path");
+const StorageManager = require("./store.js");
 /**
  * @projectname diddle.js
- * @version 0.4b
+ * @version 0.1.2
  */
 /**
  * diddle.js Engine
  * @class
- * @property {EngineScript.manifest} manifest
  * @property {number} startTimestamp startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
+ * @property {string} directory Base directory of where <code>diddlejs</code> was ran from.
  */
 class DiddleEngine {
 	/**
 	 * @type {EngineScript.manifest}
 	 */
 	manifest = {
-		version: '0.5b',
+		version: require("./../package.json").version,
 		name: 'diddle.js/engine',
 		requires: [
 			'diddle.js/loader@0.1b',
@@ -29,9 +32,12 @@ class DiddleEngine {
 			'diddle.js/locale@0.1b',
 			'diddle.js/eventman@0.1b',
 			'diddle.js/discord@0.1b',
-			'diddle.js/extman@0.1b'
+			'diddle.js/extman@0.1b',
+			'diddle.js/store@0.1'
 		]
 	}
+
+	directory = path.resolve("./");
 
 	startTimestamp = Date.now()
 
@@ -78,16 +84,18 @@ class DiddleEngine {
 		this.discord = new DiscordWrapper(diddle);
 		this.scripts = new ScriptManager(diddle);
 		this.ext = new EngineExtensionManager(diddle);
+		this.store = new StorageManager(diddle);
 
 		this.config._ready();
 		this.ext._ready();
 		this.scripts._ready();
 		this.discord._ready();
+		this.store._ready();
 	}
 	/**
 	 * @constructor
-	 * @param {module:Engine.config} diddleconfig User configuration, gets merged with <code>engine/diddle.config.default.json</code> to make sure that the required values are populated.
-	 * @param {bool} debug Wether to enable debug logging
+	 * @param {ConfigurationManager.config} diddleconfig User configuration, gets merged with <code>engine/diddle.config.default.json</code> to make sure that the required values are populated.
+	 * @param {bool} debug Whether to enable debug logging
 	 */
 	constructor(diddleconfig,debug) {
 		this.debug = debug;

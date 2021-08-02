@@ -10,7 +10,7 @@ const manifest = {
 
 /**
  * @class DiscordWrapper
- * @property {module:discordjs.Client} client Discord.JS Client
+ * @property {module:discord.js/Client} client <a href="https://discord.js.org/#/docs/main/stable/class/Client">Discord.JS Client</a>
  * @param {DiddleEngine} diddle 
  * @extends {EngineScript}
  */
