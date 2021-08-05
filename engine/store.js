@@ -138,6 +138,24 @@ class StorageManager extends EngineScript {
 		return res[0]
 	}
 
+	/**
+	 * @description Returns all storage objects with the matching meta name
+	 * @param {string} StorageName 
+	 * @returns {StorageObject[]}
+	 */
+	getByName(StorageName) {
+		return this._cache.filter(s => s._data.meta.name == StorageName);
+	}
+
+	/**
+	 * @description Fetch all Storage Objects matching the filename.
+	 * @param {string} fname Filename
+	 * @returns {StorageObject[]}
+	 */
+	getByFilename(fname) {
+		return this._cache.filter(s => s.filename = fname);
+	}
+
 	create(_name) {
 		let so = new StorageObject(`${_name}.json`,this.directory);
 		this._cache.push(so);
