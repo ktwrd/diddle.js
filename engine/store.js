@@ -153,7 +153,7 @@ class StorageManager extends EngineScript {
 	 * @returns {StorageObject[]}
 	 */
 	getByFilename(fname) {
-		return this._cache.filter(s => s.filename = fname);
+		return this._cache.filter(s => s.filename == fname);
 	}
 
 	create(_name) {
