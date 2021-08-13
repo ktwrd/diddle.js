@@ -87,10 +87,10 @@ class DiddleEngine {
 		this.store = new StorageManager(diddle);
 
 		this.config._ready();
+		this.store._ready();
 		this.ext._ready();
 		this.scripts._ready();
 		this.discord._ready();
-		this.store._ready();
 	}
 	/**
 	 * @constructor
