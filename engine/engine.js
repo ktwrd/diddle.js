@@ -8,6 +8,7 @@ const EngineExtensionManager = require("./extensionmanager.js");
 
 const path = require("path");
 const StorageManager = require("./store.js");
+const TokenManager = require("./tokenman.js");
 /**
  * @projectname diddle.js
  * @version 0.1.2
@@ -33,7 +34,8 @@ class DiddleEngine {
 			'diddle.js/eventman@0.1b',
 			'diddle.js/discord@0.1b',
 			'diddle.js/extman@0.1b',
-			'diddle.js/store@0.1'
+			'diddle.js/store@0.1',
+			'diddle.js/tokenman@0.1'
 		]
 	}
 
@@ -59,22 +61,23 @@ class DiddleEngine {
 			res(true);
 		})
 	}
-	/**
-	 * @type {LocaleManager}
-	 */
+	/** @type {LocaleManager} */
 	locale = null;
-	/**
-	 * @type {ConfigurationManager}
-	 */
+
+	/** @type {ConfigurationManager} */
 	config = null;
-	/**
-	 * @type {DiscordWrapper}
-	 */
+
+	/** @type {DiscordWrapper} */
 	discord = null;
-	/**
-	 * @type {ScriptManager}
-	 */
+
+	/** @type {ScriptManager} */
 	scripts = null;
+
+	/** @type {StorageManager} */
+	store = null;
+
+	/** @type {TokenManager} */
+	token = null;
 
 	/** @private */
 	_wrapperPopulate() {
@@ -85,12 +88,14 @@ class DiddleEngine {
 		this.scripts = new ScriptManager(diddle);
 		this.ext = new EngineExtensionManager(diddle);
 		this.store = new StorageManager(diddle);
+		this.token = new TokenManager(diddle);
 
 		this.config._ready();
+		this.token._ready();
+		this.store._ready();
 		this.ext._ready();
 		this.scripts._ready();
 		this.discord._ready();
-		this.store._ready();
 	}
 	/**
 	 * @constructor

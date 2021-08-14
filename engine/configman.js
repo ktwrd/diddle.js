@@ -22,10 +22,10 @@ const manifest = {
  * @property {LocaleManager.LocaleCode} locale
  * @property {string} scripts_directory
  * @property {bool} debug
+ * @property {object} token Has children with the object name of the service and the content of either a string, or an array of strings.
  */
 /**
  * @typedef ConfigurationManager.discordconfig
- * @property {string} token Discord Bot Token, If It's a User Token discord.js will reject it
  * @property {string[]} admin Discord User ID Snowflakes
  * @property {string} prefix Command Prefix
  */

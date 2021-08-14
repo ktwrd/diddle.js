@@ -61,7 +61,7 @@ class EngineExtensionManager extends EngineScript {
 	 * @returns {ExtensionScript[]}
 	 */
 	getByName(ScriptName) {
-		return this._score.filter(script => script.manifest.name == ScriptName);
+		return Object.entries(this._store).filter(script => script[1].manifest.name == ScriptName);
 	}
 
 	_fetchExtensions() {

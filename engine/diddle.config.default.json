@@ -1,9 +1,11 @@
 {
 	"disable": false,
 	"discord": {
-		"token": "",
 		"admin": [],
 		"prefix": "!"
+	},
+	"token": {
+		"discord": ""
 	},
 	"locale": "en_US",
 	"scripts": "./scripts/",

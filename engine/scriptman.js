@@ -167,7 +167,7 @@ class ScriptManager extends EngineScript{
 			this._parseEventScript(c_script);
 		}
 
-		this.diddle.event.call('scripts-ready');
+		this.event.call('scripts-ready');
 	}
 
 	/**
@@ -182,9 +182,11 @@ class ScriptManager extends EngineScript{
 		for (let i = 0; i < scriptEvents.length; i++) {
 			let event = scriptEvents[i];
 			if (event[0] == 'ready') {
-				this.diddle.event.on('scripts-ready',event[1]);
+				this.event.on('scripts-ready',event[1]);
+			} else if (event[0].startsWith("discord")) {
+				this.diddle.discord.event.on(event[0],event[1]);
 			} else {
-				this.diddle.event.on(event[0],event[1]);
+				this.event.on(event[0],event[1]);
 			}
 		}
 	}
