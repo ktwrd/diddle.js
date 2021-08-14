@@ -21,8 +21,9 @@ class DiscordWrapper extends EngineScript{
 	 */
 	async _ready() {
 		this.log.info("connecting to discord");
+		var token = this.diddle.token.get("discord");
 		try {
-			await this.client.login(this.diddle.config.get().discord.token);
+			await this.client.login(token);
 		} catch(e) {
 			this.log.error("failed to connect to discord;\n",e);
 			return;
