@@ -3,8 +3,8 @@ const DiscordEvents = require("./discord-events.json");
 const EngineScript = require("./enginescript");
 
 const manifest = {
-	version: '0.1b',
-	name: 'diddle.js/discord'
+	version: '0.2',
+	name: 'org.js.diddle.engine.discord'
 }
 
 
@@ -20,8 +20,22 @@ class DiscordWrapper extends EngineScript{
 	 * @description Gets called when DiscordWrapper needs to be ready for other scripts to use.
 	 */
 	async _ready() {
+		this.cmd_prefix = this.diddle.get("org.js.diddle.engine.config").get().discord.prefix;
+		for ( let i = 0; i < DiscordEvents.length; i++ ) {
+			switch(DiscordEvents[i]) {
+				case "message":
+					this.client.on(DiscordEvents[i],(d) => {
+						var msg = this.msg(d);
+						this.event.call(`discord-${DiscordEvents[i]}`,msg)
+					});
+					break;
+				default:
+					this.client.on(DiscordEvents[i],d => this.event.call(`discord-${DiscordEvents[i]}`,d));
+					break;
+			}
+		}
 		this.log.info("connecting to discord");
-		var token = this.diddle.token.get("discord");
+		var token = this.diddle.get("org.js.diddle.engine.token").get("discord");
 		try {
 			await this.client.login(token);
 		} catch(e) {
@@ -48,21 +62,6 @@ class DiscordWrapper extends EngineScript{
 		super(diddle,manifest);
 		this.client = new discord.Client();
 		this.log.info(`Running ${this.manifest.name}@${this.manifest.version}`);
-		this.event = this.diddle.event;
-		this.cmd_prefix = this.diddle.config.get().discord.prefix;
-		for ( let i = 0; i < DiscordEvents.length; i++ ) {
-			switch(DiscordEvents[i]) {
-				case "message":
-					this.client.on(DiscordEvents[i],(d) => {
-						var msg = this.msg(d);
-						this.event.call(`discord-${DiscordEvents[i]}`,msg)
-					});
-					break;
-				default:
-					this.client.on(DiscordEvents[i],d => this.event.call(`discord-${DiscordEvents[i]}`,d));
-					break;
-			}
-		}
 	}
 	
 }

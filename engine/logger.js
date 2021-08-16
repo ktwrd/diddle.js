@@ -6,7 +6,7 @@
 class Logger {
 	constructor(diddle,prefix) { 
 		this.diddle = diddle; 
-		this.prefix = prefix || "diddle.js";
+		this.prefix = prefix || "org.js.diddle";
 	}
 
 	color = {

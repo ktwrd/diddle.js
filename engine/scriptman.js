@@ -4,7 +4,7 @@ const EngineScript = require("./enginescript");
 
 const manifest = {
 	version: '0.1b',
-	name: 'diddle.js/scriptman'
+	name: 'org.js.diddle.engine.script'
 }
 /**
  * @class ScriptManager
@@ -17,7 +17,7 @@ class ScriptManager extends EngineScript{
 	 * Fetch All Valid scripts in the specifiyed directory in {DiddleEngine.config.cache}
 	 */
 	_fetchScripts() {
-		var config = this.diddle.config.get();
+		var config = this.diddle.get("org.js.diddle.engine.config").get();
 
 		var timestamp_start = Date.now();
 
@@ -145,6 +145,7 @@ class ScriptManager extends EngineScript{
 				}
 			} catch(e) {
 				this.log.error(`cannot get script\n`,e);
+				console.error(e);
 				process.exit(1);
 			}
 		}
@@ -184,7 +185,7 @@ class ScriptManager extends EngineScript{
 			if (event[0] == 'ready') {
 				this.event.on('scripts-ready',event[1]);
 			} else if (event[0].startsWith("discord")) {
-				this.diddle.discord.event.on(event[0],event[1]);
+				this.diddle.get("org.js.diddle.engine.discord").event.on(event[0],event[1]);
 			} else {
 				this.event.on(event[0],event[1]);
 			}

@@ -4,7 +4,7 @@ const path = require("path")
 const toolbox = require("tinytoolbox")
 
 const manifest = {
-	name: 'diddle.js/store',
+	name: 'org.js.diddle.engine.store',
 	version: '0.1'
 };
 
@@ -103,7 +103,7 @@ class StorageManager extends EngineScript {
 	}
 
 	_ready() {
-		this.directory = path.resolve(this.diddle.config.get().data);
+		this.directory = path.resolve(this.diddle.get("org.js.diddle.engine.config").get().data);
 
 		if (!fs.existsSync(this.directory)) {
 			try {

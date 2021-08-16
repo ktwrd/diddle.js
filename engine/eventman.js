@@ -2,7 +2,7 @@ const Logger = require("./logger");
 
 const manifest = {
 	version: '0.1b',
-	name: 'diddle.js/eventman'
+	name: 'org.js.diddle.engine.event'
 }
 /**
  * @class EventManager
@@ -13,7 +13,7 @@ class EventManager {
 	constructor(diddle) {
 		this.diddle = diddle;
 		this._eventchannels = {}
-		this.log = new Logger(diddle,"diddle.js/eventman");
+		this.log = new Logger(diddle,manifest.name);
 		this.manifest = manifest;
 	}
 	/**

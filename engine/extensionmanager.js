@@ -4,8 +4,8 @@ const path = require("path")
 const fs = require("fs")
 
 const manifest = {
-	name: "diddle.js/extman",
-	version: "0.1b"
+	name: "org.js.diddle.engine.extension",
+	version: "0.1"
 }
 
 function isClass(v) {
@@ -65,7 +65,7 @@ class EngineExtensionManager extends EngineScript {
 	}
 
 	_fetchExtensions() {
-		var config = this.diddle.config.get();
+		var config = this.diddle.get("org.js.diddle.engine.config").get();
 
 		var timestamp_start = Date.now();
 
@@ -99,7 +99,8 @@ class EngineExtensionManager extends EngineScript {
 			let current = require(path.join(this.cwd,current_filename));
 
 			if (isClass(current)) {
-				var ext = new current(this.diddle)
+				var ext = new current(this.diddle);
+				if (ext.manifest.name)
 				ext_filtered.push(ext);
 				this.log.debug(`loaded extension ${ext.manifest.name}@${ext.manifest.version} (${ext._ScriptUID})`)
 			} else {
@@ -107,6 +108,8 @@ class EngineExtensionManager extends EngineScript {
 				return;
 			}
 		}
+
+		this.extensions = ext_filtered;
 
 		this.log.info(`took ${Date.now() - timestamp_start}ms`);
 	}
