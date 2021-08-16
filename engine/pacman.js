@@ -5,6 +5,9 @@ const manifest = {
 	version: "0.1"
 }
 
+/**
+ * @extends {EngineScript}
+ */
 class PackageManager extends EngineScript {
 	_processPackageArray(arr) {
 		for (let i = 0; i < arr.length; i++) {
@@ -26,9 +29,17 @@ class PackageManager extends EngineScript {
 			}
 		}
 	}
+	/**
+	 * @param {string} PackageName Package name matching Java's package naming conventions
+	 * @returns {EngineScript|ExtensionScript|undefined}
+	 */
 	get(PackageName) {
 		return this._data[PackageName];
 	}
+	/**
+	 * 
+	 * @param {DiddleEngine} diddle 
+	 */
 	constructor(diddle) {
 		super(diddle,manifest);
 		this._data = {};

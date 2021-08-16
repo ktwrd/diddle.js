@@ -14,11 +14,13 @@ const PackageManager = require("./pacman.js");
  * @projectname diddle.js
  * @version 0.2.0
  */
+
 /**
  * diddle.js Engine
  * @class
  * @property {number} startTimestamp startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
  * @property {string} directory Base directory of where <code>diddlejs</code> was ran from.
+ * @property {PackageManager} pacman
  */
 class DiddleEngine {
 	/**
