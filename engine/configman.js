@@ -37,14 +37,13 @@ const manifest = {
  * @argument {ConfigurationManager.config} _config
  */
 class ConfigurationManager extends EngineScript{
-	async _ready() {
-		this.config = await extend({},DefaultConfig,this._config);
-
+	_ready() {
+		this.config = extend({},DefaultConfig,this._config);
 		this.locale = this.diddle.locale.switch(this.config.locale);
 	}
 	constructor(diddle,_config) {
 		super(diddle,manifest);
-		this.config = _config;
+		this._config = _config;
 		this.log.info(`Running ${this.manifest.name}@${this.manifest.version}`);
 	}
 
