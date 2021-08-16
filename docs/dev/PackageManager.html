@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>engine.js - Documentation</title>
+    <title>PackageManager - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,141 +29,354 @@
 
 <div id="main">
     
-    <h1 class="page-title">engine.js</h1>
+    <h1 class="page-title">PackageManager</h1>
     
 
     
 
 
 
+
+<section>
+
+<header>
     
-    <section>
-        <article>
-            <pre class="prettyprint source linenums"><code>const ScriptManager = require("./scriptman.js");
-const LogUtil = require("./logger.js")
-const LocaleManager = require("./locale.js");
-const ConfigurationManager = require("./configman.js");
-const EventManager = require("./eventman");
-const DiscordWrapper = require("./discord");
-const EngineExtensionManager = require("./extensionmanager.js");
+        <h2>
+        PackageManager
+        </h2>
+        
+    
+</header>
 
-const path = require("path");
-const StorageManager = require("./store.js");
-const TokenManager = require("./tokenman.js");
-const PackageManager = require("./pacman.js");
-/**
- * @projectname diddle.js
- * @version 0.2.0
- */
+<article>
+    <div class="container-overview">
+    
+        
+<div class="section-method">
 
-/**
- * diddle.js Engine
- * @class
- * @property {number} startTimestamp startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
- * @property {string} directory Base directory of where &lt;code>diddlejs&lt;/code> was ran from.
- * @property {PackageManager} pacman
- */
-class DiddleEngine {
-	/**
-	 * @type {EngineScript.manifest}
-	 */
-	manifest = {
-		version: require("./../package.json").version,
-		name: 'org.js.diddle.engine',
-		requires: [
-			'org.js.diddle.engine.loader',
-			'org.js.diddle.engine.script',
-			'org.js.diddle.engine.config',
-			'org.js.diddle.engine.locale',
-			'org.js.diddle.engine.event',
-			'org.js.diddle.engine.discord',
-			'org.js.diddle.engine.extension',
-			'org.js.diddle.engine.store',
-			'org.js.diddle.engine.token'
-		]
-	}
+    
 
-	directory = path.resolve("./");
+    <h4 class="name" id="PackageManager"><span class="type-signature"></span>new PackageManager<span class="signature">(diddle)</span><span class="type-signature"></span></h4>
 
-	startTimestamp = Date.now()
-
-	_eventchannels = {
-		/*
-		&lt;channel>: function[]
-		*/
-	};
+    
 
 
-	/** @private */
-	_isJSON(obj) {
-		return new Promise((res) => {
-			try {
-				let t = JSON.stringify(obj);
-			} catch(e) {
-				res(false);
-			}
-			res(true);
-		})
-	}
 
-	/** @private */
-	_wrapperPopulate() {
-		this.locale = new LocaleManager(this);
-		this.pacman._processPackageArray([
-			new ConfigurationManager(this,this._config),
-		])
-		this.pacman._processPackageArray([
-			new TokenManager(this),
-			new StorageManager(this),
-		])
-		this.pacman._processPackageArray([
-			new EngineExtensionManager(this),
-		])
-		this.pacman._processPackageArray(this.pacman.get("org.js.diddle.engine.extension").extensions);
-		this.pacman._processPackageArray([
-			new DiscordWrapper(this),
-			new ScriptManager(this),
-		])
-	}
 
-	/**
-	 * @constructor
-	 * @param {ConfigurationManager.config} diddleconfig User configuration, gets merged with &lt;code>engine/diddle.config.default.json&lt;/code> to make sure that the required values are populated.
-	 * @param {bool} debug Whether to enable debug logging
-	 */
-	constructor(diddleconfig,debug) {
-		this.debug = debug;
-		if (!this._isJSON(diddleconfig)) {
-			throw new Error("Configuration is not JSON");
-		}
-		this.event = new EventManager(this);
-		this.log = new LogUtil(this,this.manifest.name);
 
-		this._config = diddleconfig;
 
-		this.log = new LogUtil(this,this.manifest.name);
-		this.log.info(`Running ${this.manifest.name}@${this.manifest.version} ${this.debug ? '(Debug Mode Enabled)' : ''}`);
 
-		this.pacman = new PackageManager(this);
+<dl class="details">
 
-		this._wrapperPopulate();
-	}
-}
+    
 
-module.exports = {
-	engine: DiddleEngine,
-	ScriptManager: require("./scriptman.js"),
-	Logger: require("./logger"),
-	LocaleManager: require("./locale"),
-	Configuration: require("./configman"),
-	EventManager: require("./eventman"),
-	EngineScript: require("./enginescript"),
-	Discord: require("./discord"),
-	ExtensionManager: require("./extensionmanager"),
-	Extension: require("./extensionscript")
-}</code></pre>
-        </article>
-    </section>
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pacman.js.html">pacman.js</a>, <a href="pacman.js.html#line11">line 11</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>diddle</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code><a href="DiddleEngine.html">DiddleEngine</a></code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</div>
+    
+    </div>
+
+    
+        <h3 class="subsection-title">Extends</h3>
+
+        
+
+
+    <ul>
+        <li><a href="EngineScript.html">EngineScript</a></li>
+    </ul>
+
+
+    
+
+    
+
+    
+
+     
+
+    
+
+    
+
+    
+        <h3 class="subsection-title">Methods</h3>
+
+        
+            
+<div class="section-method">
+
+    
+
+    <h4 class="name" id="get"><span class="type-signature"></span>get<span class="signature">(PackageName)</span><span class="type-signature"> &rarr; {<a href="EngineScript.html">EngineScript</a>|<a href="ExtensionScript.html">ExtensionScript</a>|undefined}</span></h4>
+
+    
+
+
+
+
+
+
+
+<dl class="details">
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+
+    
+    <dt class="tag-source">Source:</dt>
+    <dd class="tag-source"><ul class="dummy"><li>
+        <a href="pacman.js.html">pacman.js</a>, <a href="pacman.js.html#line36">line 36</a>
+    </li></ul></dd>
+    
+
+    
+
+    
+
+    
+</dl>
+
+
+
+
+
+
+
+
+
+    <h5>Parameters:</h5>
+    
+
+<table class="params">
+    <thead>
+    <tr>
+        
+        <th>Name</th>
+        
+
+        <th>Type</th>
+
+        
+
+        
+
+        <th class="last">Description</th>
+    </tr>
+    </thead>
+
+    <tbody>
+    
+
+        <tr>
+            
+                <td class="name"><code>PackageName</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type"><code>string</code></span>
+
+
+            
+            </td>
+
+            
+
+            
+
+            <td class="description last">
+                <p>Package name matching Java's package naming conventions</p>
+                
+            </td>
+        </tr>
+
+    
+    </tbody>
+</table>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div class="section-returns">
+<h5>Returns:</h5>
+
+        
+
+<dl class="param-type">
+    <dt>
+        Type:
+    </dt>
+    <dd>
+        
+<span class="param-type"><code><a href="EngineScript.html">EngineScript</a></code></span>
+|
+
+<span class="param-type"><code><a href="ExtensionScript.html">ExtensionScript</a></code></span>
+|
+
+<span class="param-type"><code>undefined</code></span>
+
+
+    </dd>
+</dl>
+
+
+    
+</div>
+
+
+
+</div>
+        
+    
+
+    
+
+    
+</article>
+
+</section>
 
 
 
