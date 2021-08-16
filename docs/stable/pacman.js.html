@@ -3,7 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>DiscordWrapper - Documentation</title>
+    <title>pacman.js - Documentation</title>
 
     <script src="scripts/prettify/prettify.js"></script>
     <script src="scripts/prettify/lang-css.js"></script>
@@ -29,333 +29,66 @@
 
 <div id="main">
     
-    <h1 class="page-title">DiscordWrapper</h1>
+    <h1 class="page-title">pacman.js</h1>
     
 
     
 
 
 
-
-<section>
-
-<header>
     
-        <h2>
-        DiscordWrapper
-        </h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="DiscordWrapper"><span class="type-signature"></span>new DiscordWrapper<span class="signature">(diddle)</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-
-
-
-
-    <h5 class="subsection-title">Properties:</h5>
-
-    
-
-<table class="props">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>client</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code>module:discord.js/Client</code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"><p><a href="https://discord.js.org/#/docs/main/stable/class/Client">Discord.JS Client</a></p></td>
-        </tr>
-
-        
-
-    
-    </tbody>
-</table>
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="discord.js.html">discord.js</a>, <a href="discord.js.html#line11">line 11</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-        <th>Name</th>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-                <td class="name"><code>diddle</code></td>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type"><code><a href="DiddleEngine.html">DiddleEngine</a></code></span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">
-                
-                
-            </td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-    
-    </div>
-
-    
-        <h3 class="subsection-title">Extends</h3>
-
-        
-
-
-    <ul>
-        <li><a href="EngineScript.html">EngineScript</a></li>
-    </ul>
-
-
-    
-
-    
-
-    
-
-     
-
-    
-
-    
-
-    
-        <h3 class="subsection-title">Methods</h3>
-
-        
-            
-<div class="section-method">
-
-    
-
-    <h4 class="name" id="_ready"><span class="type-signature">(async) </span>_ready<span class="signature">()</span><span class="type-signature"></span></h4>
-
-    
-
-
-
-<div class="description">
-    <p>Gets called when DiscordWrapper needs to be ready for other scripts to use.</p>
-</div>
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="discord.js.html">discord.js</a>, <a href="discord.js.html#line22">line 22</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-</div>
-        
-    
-
-    
-
-    
-</article>
-
-</section>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>const EngineScript = require("./enginescript");
+
+const manifest = {
+	name: "org.js.diddle.engine.pacman",
+	version: "0.1"
+}
+
+/**
+ * @extends {EngineScript}
+ */
+class PackageManager extends EngineScript {
+	_processPackageArray(arr) {
+		for (let i = 0; i &lt; arr.length; i++) {
+			var currentscript = arr[i];
+			if (/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/.test(currentscript.manifest.name) &amp;&amp; !currentscript.manifest.name.startsWith("_processPackageArray")) {
+				/*let wstring = '';
+				var mname = currentscript.manifest.name.split(".");
+				for (let j = 0; j &lt; mname.length; j++) {
+					var wname = mname[j]
+					wstring+="."+wname;
+
+					eval(`this${wstring} = this${wstring} || {};`);
+				}
+				eval("this."+currentscript.manifest.name+" = currentscript");*/
+				this._data[currentscript.manifest.name] = currentscript;
+				if (currentscript._ready != undefined) {
+					currentscript._ready();
+				}
+			}
+		}
+	}
+	/**
+	 * @param {string} PackageName Package name matching Java's package naming conventions
+	 * @returns {EngineScript|ExtensionScript|undefined}
+	 */
+	get(PackageName) {
+		return this._data[PackageName];
+	}
+	/**
+	 * 
+	 * @param {DiddleEngine} diddle 
+	 */
+	constructor(diddle) {
+		super(diddle,manifest);
+		this._data = {};
+	}
+}
+module.exports = PackageManager;</code></pre>
+        </article>
+    </section>
 
 
 
