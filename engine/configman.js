@@ -12,7 +12,7 @@ function extend(target) {
 }
 const manifest = {
 	version: '0.1b',
-	name: 'diddle.js/configman'
+	name: 'org.js.diddle.engine.config'
 }
 
 /**
