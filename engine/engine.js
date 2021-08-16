@@ -9,6 +9,7 @@ const EngineExtensionManager = require("./extensionmanager.js");
 const path = require("path");
 const StorageManager = require("./store.js");
 const TokenManager = require("./tokenman.js");
+const PackageManager = require("./pacman.js");
 /**
  * @projectname diddle.js
  * @version 0.2.0
@@ -62,64 +63,24 @@ class DiddleEngine {
 		})
 	}
 
-	packages = {
-		org: {
-			js: {
-				diddle: {
-					engine: {}
-				}
-			}
-		}
-	};
-
-	/** @private */
-	_processScriptArray(arr) {
-		for (let i = 0; i < arr.length; i++) {
-			var currentscript = arr[i];
-			if (/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/.test(currentscript.manifest.name)) {
-				let wstring = '';
-				var mname = currentscript.manifest.name.split(".");
-				for (let j = 0; j < mname.length; j++) {
-					var wname = mname[j]
-					wstring+="."+wname;
-					eval(`this.packages${wstring} = this.packages${wstring} || {};`);
-				}
-				eval("this.packages."+currentscript.manifest.name+" = currentscript");
-				if (currentscript._ready != undefined) {
-					currentscript._ready();
-				}
-			}
-		}
-	}
-
 	/** @private */
 	_wrapperPopulate() {
 		this.locale = new LocaleManager(this);
-
-		this._processScriptArray([
+		this.pacman._processPackageArray([
 			new ConfigurationManager(this,this._config),
+		])
+		this.pacman._processPackageArray([
 			new TokenManager(this),
 			new StorageManager(this),
+		])
+		this.pacman._processPackageArray([
 			new EngineExtensionManager(this),
 		])
-		this._processScriptArray([
+		this.pacman._processPackageArray(this.pacman.get("org.js.diddle.engine.extension").extensions);
+		this.pacman._processPackageArray([
 			new DiscordWrapper(this),
 			new ScriptManager(this),
 		])
-		this._processScriptArray(this.packages.org.js.diddle.engine.extension.extensions);
-		console.log(this.packages)
-	}
-
-	/**
-	 * @description Get Engine Extension by Package Name. This includes core packages such as <code>org.js.diddle.engine.config</code>.
-	 * @param {string} PackageName Must match [Java's Hierarchial Naming Pattern](https://en.wikipedia.org/wiki/Java_package#Package_naming_conventions)
-	 * @returns {Array<EngineScript>}
-	 */
-	get(PackageName) {
-		if (PackageName == this.manifest.name) return this;
-		// Return an array of objects where the manifest name matches the queries package name
-		if (!/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/.test(PackageName)) return undefined;
-		return eval("this.packages."+PackageName);
 	}
 
 	/**
@@ -137,8 +98,10 @@ class DiddleEngine {
 
 		this._config = diddleconfig;
 
-		this.log = new LogUtil(this,"diddle.js/engine");
+		this.log = new LogUtil(this,this.manifest.name);
 		this.log.info(`Running ${this.manifest.name}@${this.manifest.version} ${this.debug ? '(Debug Mode Enabled)' : ''}`);
+
+		this.pacman = new PackageManager(this);
 
 		this._wrapperPopulate();
 	}
