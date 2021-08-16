@@ -5,7 +5,7 @@ const EngineScript = require("./enginescript");
 
 const manifest = {
 	version: '0.1b',
-	name: 'diddle.js/locale'
+	name: 'org.js.diddle.engine.locale'
 }
 
 function extend(target) {
