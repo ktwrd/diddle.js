@@ -11,7 +11,7 @@ const StorageManager = require("./store.js");
 const TokenManager = require("./tokenman.js");
 /**
  * @projectname diddle.js
- * @version 0.1.2
+ * @version 0.2.0
  */
 /**
  * diddle.js Engine
@@ -25,17 +25,17 @@ class DiddleEngine {
 	 */
 	manifest = {
 		version: require("./../package.json").version,
-		name: 'diddle.js/engine',
+		name: 'org.js.diddle.engine',
 		requires: [
-			'diddle.js/loader@0.1b',
-			'diddle.js/scriptman@0.1b',
-			'diddle.js/configman@0.1b',
-			'diddle.js/locale@0.1b',
-			'diddle.js/eventman@0.1b',
-			'diddle.js/discord@0.1b',
-			'diddle.js/extman@0.1b',
-			'diddle.js/store@0.1',
-			'diddle.js/tokenman@0.1'
+			'org.js.diddle.engine.loader',
+			'org.js.diddle.engine.script',
+			'org.js.diddle.engine.config',
+			'org.js.diddle.engine.locale',
+			'org.js.diddle.engine.event',
+			'org.js.diddle.engine.discord',
+			'org.js.diddle.engine.extension',
+			'org.js.diddle.engine.store',
+			'org.js.diddle.engine.token'
 		]
 	}
 
@@ -61,42 +61,67 @@ class DiddleEngine {
 			res(true);
 		})
 	}
-	/** @type {LocaleManager} */
-	locale = null;
 
-	/** @type {ConfigurationManager} */
-	config = null;
+	packages = {
+		org: {
+			js: {
+				diddle: {
+					engine: {}
+				}
+			}
+		}
+	};
 
-	/** @type {DiscordWrapper} */
-	discord = null;
-
-	/** @type {ScriptManager} */
-	scripts = null;
-
-	/** @type {StorageManager} */
-	store = null;
-
-	/** @type {TokenManager} */
-	token = null;
+	/** @private */
+	_processScriptArray(arr) {
+		for (let i = 0; i < arr.length; i++) {
+			var currentscript = arr[i];
+			if (/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/.test(currentscript.manifest.name)) {
+				let wstring = '';
+				var mname = currentscript.manifest.name.split(".");
+				for (let j = 0; j < mname.length; j++) {
+					var wname = mname[j]
+					wstring+="."+wname;
+					eval(`this.packages${wstring} = this.packages${wstring} || {};`);
+				}
+				eval("this.packages."+currentscript.manifest.name+" = currentscript");
+				if (currentscript._ready != undefined) {
+					currentscript._ready();
+				}
+			}
+		}
+	}
 
 	/** @private */
 	_wrapperPopulate() {
-		var diddle = this;
-		this.locale = new LocaleManager(diddle);
-		this.config = new ConfigurationManager(diddle,this._config);
-		this.discord = new DiscordWrapper(diddle);
-		this.scripts = new ScriptManager(diddle);
-		this.ext = new EngineExtensionManager(diddle);
-		this.store = new StorageManager(diddle);
-		this.token = new TokenManager(diddle);
+		this.locale = new LocaleManager(this);
 
-		this.config._ready();
-		this.token._ready();
-		this.store._ready();
-		this.ext._ready();
-		this.scripts._ready();
-		this.discord._ready();
+		this._processScriptArray([
+			new ConfigurationManager(this,this._config),
+			new TokenManager(this),
+			new StorageManager(this),
+			new EngineExtensionManager(this),
+		])
+		this._processScriptArray([
+			new DiscordWrapper(this),
+			new ScriptManager(this),
+		])
+		this._processScriptArray(this.packages.org.js.diddle.engine.extension.extensions);
+		console.log(this.packages)
 	}
+
+	/**
+	 * @description Get Engine Extension by Package Name. This includes core packages such as <code>org.js.diddle.engine.config</code>.
+	 * @param {string} PackageName Must match [Java's Hierarchial Naming Pattern](https://en.wikipedia.org/wiki/Java_package#Package_naming_conventions)
+	 * @returns {Array<EngineScript>}
+	 */
+	get(PackageName) {
+		if (PackageName == this.manifest.name) return this;
+		// Return an array of objects where the manifest name matches the queries package name
+		if (!/^[a-zA-Z0-9][a-zA-Z0-9-]{1,61}[a-zA-Z0-9](?:\.[a-zA-Z]{2,})+$/.test(PackageName)) return undefined;
+		return eval("this.packages."+PackageName);
+	}
+
 	/**
 	 * @constructor
 	 * @param {ConfigurationManager.config} diddleconfig User configuration, gets merged with <code>engine/diddle.config.default.json</code> to make sure that the required values are populated.
