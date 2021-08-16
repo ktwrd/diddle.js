@@ -65,7 +65,7 @@ class EngineExtensionManager extends EngineScript {
 	}
 
 	_fetchExtensions() {
-		var config = this.diddle.get("org.js.diddle.engine.config").get();
+		var config = this.diddle.pacman.get("org.js.diddle.engine.config").get();
 
 		var timestamp_start = Date.now();
 

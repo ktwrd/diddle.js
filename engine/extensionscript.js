@@ -14,7 +14,7 @@ class ExtensionScript extends EngineScript {
 	constructor(diddle,manifest) {
 		super(diddle,manifest);
 		this._ScriptUID = crypto.createHash("md5").update(manifest.name + "@" + manifest.version).digest("hex");
-		this.diddle.get("org.js.diddle.engine.extension").append(this);
+		this.diddle.pacman.get("org.js.diddle.engine.extension").append(this);
 	}
 
 }

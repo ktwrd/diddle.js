@@ -17,8 +17,15 @@ const manifest = {
 class StorageObject {
 	hasUpdated = false;
 
+	_data = {
+		meta: {
+			name: '',
+			id: '',
+		},
+		content: null
+	}
+
 	/**
-	 * 
 	 * @param {string} _filename A Valid JSON Filename
 	 * @param {string} _directory A Valid Directory
 	 */
@@ -30,13 +37,11 @@ class StorageObject {
 		if (!fs.existsSync(_directory)) {
 			fs.mkdirSync(_directory,{recursive:true});
 		}
-
 		this.sync()
 		if (this._data.meta.id.length < 1) {
 			this.resetID();
 		}
 		this.sync()
-
 	}
 
 	/**
@@ -57,14 +62,6 @@ class StorageObject {
 			console.error(`\x1b[41m====== [FATAL STORAGE ERROR] ======\x1b[0m\n${this.location}\n`,error,`\n\x1b[41m====== ##################### ======\x1b[0m`)
 			return error;
 		}
-	}
-
-	_data = {
-		meta: {
-			name: '',
-			id: '',
-		},
-		content: null
 	}
 
 	/**
@@ -103,13 +100,13 @@ class StorageManager extends EngineScript {
 	}
 
 	_ready() {
-		this.directory = path.resolve(this.diddle.get("org.js.diddle.engine.config").get().data);
+		this.directory = path.resolve(this.diddle.pacman.get("org.js.diddle.engine.config").get().data);
 
 		if (!fs.existsSync(this.directory)) {
 			try {
 				fs.mkdirSync(this.directory);
 			} catch (e) {
-				this.log.error(`failed to create data directory;\n${e.toString()}`);
+				this.log.error(`failed to create data directory;\n${e.stack}`);
 				process.exit(1);
 			}
 			this.log.debug(`created data directory`);
@@ -119,7 +116,12 @@ class StorageManager extends EngineScript {
 
 		for (let i = 0; i < files.length; i++) {
 			var fname = files[i];
-			this._cache.push(new StorageObject(fname,this.directory));
+			switch (fname.startsWith) {
+				case "js":
+				case "json":
+					this._cache.push(new StorageObject(fname,this.directory));
+					break;
+			}
 		}
 	}
 

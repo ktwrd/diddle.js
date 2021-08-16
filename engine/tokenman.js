@@ -9,8 +9,7 @@ class TokenManager extends EngineScript {
 	constructor(diddle) {
 		super(diddle,manifest);
 		this.event.on('data-reload',() => {
-			console.log(this.diddle.get("org.js.diddle.engine.config"))
-			this._data = this.diddle.get("org.js.diddle.engine.config").get().token;
+			this._data = this.diddle.pacman.get("org.js.diddle.engine.config").get().token;
 		})
 	}
 	_ready() {

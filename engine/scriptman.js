@@ -17,7 +17,7 @@ class ScriptManager extends EngineScript{
 	 * Fetch All Valid scripts in the specifiyed directory in {DiddleEngine.config.cache}
 	 */
 	_fetchScripts() {
-		var config = this.diddle.get("org.js.diddle.engine.config").get();
+		var config = this.diddle.pacman.get("org.js.diddle.engine.config").get();
 
 		var timestamp_start = Date.now();
 
@@ -185,7 +185,7 @@ class ScriptManager extends EngineScript{
 			if (event[0] == 'ready') {
 				this.event.on('scripts-ready',event[1]);
 			} else if (event[0].startsWith("discord")) {
-				this.diddle.get("org.js.diddle.engine.discord").event.on(event[0],event[1]);
+				this.diddle.pacman.get("org.js.diddle.engine.discord").event.on(event[0],event[1]);
 			} else {
 				this.event.on(event[0],event[1]);
 			}

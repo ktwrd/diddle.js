@@ -20,7 +20,7 @@ class DiscordWrapper extends EngineScript{
 	 * @description Gets called when DiscordWrapper needs to be ready for other scripts to use.
 	 */
 	async _ready() {
-		this.cmd_prefix = this.diddle.get("org.js.diddle.engine.config").get().discord.prefix;
+		this.cmd_prefix = this.diddle.pacman.get("org.js.diddle.engine.config").get().discord.prefix;
 		for ( let i = 0; i < DiscordEvents.length; i++ ) {
 			switch(DiscordEvents[i]) {
 				case "message":
@@ -35,7 +35,7 @@ class DiscordWrapper extends EngineScript{
 			}
 		}
 		this.log.info("connecting to discord");
-		var token = this.diddle.get("org.js.diddle.engine.token").get("discord");
+		var token = this.diddle.pacman.get("org.js.diddle.engine.token").get("discord");
 		try {
 			await this.client.login(token);
 		} catch(e) {
@@ -51,7 +51,7 @@ class DiscordWrapper extends EngineScript{
 	 * @private
 	 */
 	msg(_message) {
-		_message.prefix = this.diddle.config.get().discord.prefix;
+		_message.prefix = this.diddle.pacman.get("org.js.diddle.engine.config").get().discord.prefix;
 		_message.command = _message.content.replace(_message.prefix,"").split(' ')[0];
 		_message.args = _message.content.split(_message.prefix+_message.command).join('').split(' ');
 		_message.command = _message.command.toLowerCase().trim();
