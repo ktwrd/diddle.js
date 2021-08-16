@@ -9,15 +9,18 @@ const EngineExtensionManager = require("./extensionmanager.js");
 const path = require("path");
 const StorageManager = require("./store.js");
 const TokenManager = require("./tokenman.js");
+const PackageManager = require("./pacman.js");
 /**
  * @projectname diddle.js
- * @version 0.1.2
+ * @version 0.2.0
  */
+
 /**
  * diddle.js Engine
  * @class
  * @property {number} startTimestamp startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
  * @property {string} directory Base directory of where <code>diddlejs</code> was ran from.
+ * @property {PackageManager} pacman
  */
 class DiddleEngine {
 	/**
@@ -25,17 +28,17 @@ class DiddleEngine {
 	 */
 	manifest = {
 		version: require("./../package.json").version,
-		name: 'diddle.js/engine',
+		name: 'org.js.diddle.engine',
 		requires: [
-			'diddle.js/loader@0.1b',
-			'diddle.js/scriptman@0.1b',
-			'diddle.js/configman@0.1b',
-			'diddle.js/locale@0.1b',
-			'diddle.js/eventman@0.1b',
-			'diddle.js/discord@0.1b',
-			'diddle.js/extman@0.1b',
-			'diddle.js/store@0.1',
-			'diddle.js/tokenman@0.1'
+			'org.js.diddle.engine.loader',
+			'org.js.diddle.engine.script',
+			'org.js.diddle.engine.config',
+			'org.js.diddle.engine.locale',
+			'org.js.diddle.engine.event',
+			'org.js.diddle.engine.discord',
+			'org.js.diddle.engine.extension',
+			'org.js.diddle.engine.store',
+			'org.js.diddle.engine.token'
 		]
 	}
 
@@ -61,42 +64,27 @@ class DiddleEngine {
 			res(true);
 		})
 	}
-	/** @type {LocaleManager} */
-	locale = null;
-
-	/** @type {ConfigurationManager} */
-	config = null;
-
-	/** @type {DiscordWrapper} */
-	discord = null;
-
-	/** @type {ScriptManager} */
-	scripts = null;
-
-	/** @type {StorageManager} */
-	store = null;
-
-	/** @type {TokenManager} */
-	token = null;
 
 	/** @private */
 	_wrapperPopulate() {
-		var diddle = this;
-		this.locale = new LocaleManager(diddle);
-		this.config = new ConfigurationManager(diddle,this._config);
-		this.discord = new DiscordWrapper(diddle);
-		this.scripts = new ScriptManager(diddle);
-		this.ext = new EngineExtensionManager(diddle);
-		this.store = new StorageManager(diddle);
-		this.token = new TokenManager(diddle);
-
-		this.config._ready();
-		this.token._ready();
-		this.store._ready();
-		this.ext._ready();
-		this.scripts._ready();
-		this.discord._ready();
+		this.locale = new LocaleManager(this);
+		this.pacman._processPackageArray([
+			new ConfigurationManager(this,this._config),
+		])
+		this.pacman._processPackageArray([
+			new TokenManager(this),
+			new StorageManager(this),
+		])
+		this.pacman._processPackageArray([
+			new EngineExtensionManager(this),
+		])
+		this.pacman._processPackageArray(this.pacman.get("org.js.diddle.engine.extension").extensions);
+		this.pacman._processPackageArray([
+			new DiscordWrapper(this),
+			new ScriptManager(this),
+		])
 	}
+
 	/**
 	 * @constructor
 	 * @param {ConfigurationManager.config} diddleconfig User configuration, gets merged with <code>engine/diddle.config.default.json</code> to make sure that the required values are populated.
@@ -112,8 +100,10 @@ class DiddleEngine {
 
 		this._config = diddleconfig;
 
-		this.log = new LogUtil(this,"diddle.js/engine");
+		this.log = new LogUtil(this,this.manifest.name);
 		this.log.info(`Running ${this.manifest.name}@${this.manifest.version} ${this.debug ? '(Debug Mode Enabled)' : ''}`);
+
+		this.pacman = new PackageManager(this);
 
 		this._wrapperPopulate();
 	}
