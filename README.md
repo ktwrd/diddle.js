@@ -4,6 +4,6 @@
 
 <h2><a href="docs/stable">Documentation</a>
 	<sup><a href="docs/dev">(Development Branch)</a></sup></h2>
-<h2><a href="SETUPDEVENV.md">Development Enviroment Setup Guide</a></h2>
+<h2><a href="SETUPDEVENV">Development Enviroment Setup Guide</a></h2>
 
 
