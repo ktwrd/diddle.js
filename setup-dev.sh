@@ -56,6 +56,8 @@ printdt "$ diddlejs init"
 
 #  ==== Initalize Submodules
 printdt "# [docs] Installing git submodules"
+printdt "$ git submodule init ."
+git submodule init .
 printdt "$ git submodule update --init --recursive ."
 git submodule update --init --recursive .
 
