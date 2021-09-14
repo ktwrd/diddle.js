@@ -61,6 +61,8 @@ git submodule init .
 printdt "$ git submodule update --init --recursive ."
 git submodule update --init --recursive .
 
+printdt "# [docs] To update submodules do 'npm run update' in 'diddle.js/docs/'"
+
 #  ==== Install Modules
 printdt "$ cd .. && cd docs"
 cd .. && cd docs
