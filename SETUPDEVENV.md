@@ -44,15 +44,49 @@ $ ./setup-dev.sh
 ```
 ./ (directory where setup script was ran)
 └── diddle.js
-    ├── dev (branch 'dev')
+    ├── dev 				(branch 'dev')
+    │	│
     │   ├── engine
     │   ├── node_modules
     │   └── scripts
-    ├── docs (branch 'docs')
+    │
+    ├── docs 				(branch 'docs')
+    │	│
     │   ├── docs
+    │	│	│
+    │	│	├── dev
+    │	│	├── dev-local	(git ignore)
+    │	│	└── stable
+    │	│
     │   ├── node_modules
-    │   ├── source (submodule)
-    │   └── source-dev (submodule)
-    └── test (Script Testing Area)
+    │   ├── source       	(submodule from branch 'stable')
+    │   └── source-dev   	(submodule from branch 'dev')
+    │
+    └── test 				(Script Testing Area)
+    	│
         └── node_modules
+```
+
+## Documentation
+
+### Updating
+
+To update documentation submodules;
+```
+$ cd diddle.js/docs/
+$ npm run update
+```
+
+Building Documentation
+```
+
+# Build Stable Documentation
+$ npm run build
+
+# Build Development Branch Documentation
+$ npm run build-dev
+
+# Build Documentation from ./../dev/
+$ npm run build-dev-local
+
 ```
