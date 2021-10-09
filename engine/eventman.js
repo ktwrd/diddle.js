@@ -40,7 +40,23 @@ class EventManager {
 			this._eventchannels[_channel] = [];
 		}
 		this.log.debug(`called event '${_channel}' `,_data || '');
-		this._eventchannels[_channel].forEach(c => c(this.diddle,_data || null));
+		return new Promise(async (resolve,reject) => {
+			let tmpPromise = this._eventchannels[_channel].map(e => new Promise(res => e(this.diddle,_data || null)));
+
+			Promise.all(tmpPromise)
+				.then((response) =>
+				{
+					if (response != undefined && response.stack != undefined)
+					{
+						reject(response);
+					}
+					else
+					{
+						resolve(response == undefined ? null : response);
+					}
+				})
+				.catch(reject);
+		})
 	}
 }
 module.exports = EventManager;

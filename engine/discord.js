@@ -1,6 +1,7 @@
 const discord = require("discord.js");
 const DiscordEvents = require("./discord-events.json");
 const EngineScript = require("./enginescript");
+const toolbox = require("tinytoolbox")
 
 const manifest = {
 	version: '0.2',
@@ -24,9 +25,26 @@ class DiscordWrapper extends EngineScript{
 		for ( let i = 0; i < DiscordEvents.length; i++ ) {
 			switch(DiscordEvents[i]) {
 				case "message":
-					this.client.on(DiscordEvents[i],(d) => {
+					this.client.on(DiscordEvents[i],async (d) => {
 						var msg = this.msg(d);
-						this.event.call(`discord-${DiscordEvents[i]}`,msg)
+						try {
+							await this.event.call(`discord-${DiscordEvents[i]}`,msg);
+						} catch(e) {
+							let ErrorID = toolbox.stringGen(4,6) + "-" + toolbox.stringGen(12,3) + "-" + toolbox.stringGen(7,3);
+							let Timestamp = Date.now();
+							var response = new discord.MessageEmbed()
+								.setTitle("Error with Processing Message")
+								.setDescription("```"+e.stack+"```\nErrorID: \`"+ErrorID+"\`")
+								.setTimestamp()
+								.setFooter(`Event: ${DiscordEvents[i]}`);
+							d.channel.send({embed: response});
+							this.event.call(`discord-errorhandle`,{
+								id: ErrorID,
+								error: e,
+								timestamp: Timestamp,
+								message: d
+							});
+						}
 					});
 					break;
 				default:
