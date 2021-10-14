@@ -48,7 +48,13 @@ class DiscordWrapper extends EngineScript{
 					});
 					break;
 				default:
-					this.client.on(DiscordEvents[i],d => this.event.call(`discord-${DiscordEvents[i]}`,d));
+					this.client.on(DiscordEvents[i],(...d) => 
+					{
+						// Yes, It's jank but it works. :/
+						let args = [`discord-${DiscordEvents[i]}`];
+						args = args.concat(d);
+						this.event.call( ...args );
+					});
 					break;
 			}
 		}

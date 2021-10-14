@@ -35,13 +35,13 @@ class EventManager {
 	 * @param {string} _channel 
 	 * @param {*} _data 
 	 */
-	call (_channel,_data) {
+	call (_channel,..._data) {
 		if (this._eventchannels[_channel] == undefined) {
 			this._eventchannels[_channel] = [];
 		}
 		this.log.debug(`called event '${_channel}' `,_data || '');
 		return new Promise(async (resolve,reject) => {
-			let tmpPromise = this._eventchannels[_channel].map(e => new Promise(res => e(this.diddle,_data || null)));
+			let tmpPromise = this._eventchannels[_channel].map(e => new Promise(res => e(this.diddle,..._data || null)));
 
 			Promise.all(tmpPromise)
 				.then((response) =>
