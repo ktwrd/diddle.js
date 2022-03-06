@@ -24,7 +24,7 @@ class DiscordWrapper extends EngineScript{
         this.cmd_prefix = this.diddle.pacman.get("org.js.diddle.engine.config").get().discord.prefix;
         for ( let i = 0; i < DiscordEvents.length; i++ ) {
             switch(DiscordEvents[i]) {
-                case "message":
+                case "messageCreate":
                     this.client.on(DiscordEvents[i],async (d) => {
                         var msg = this.msg(d);
                         try {
