@@ -162,13 +162,13 @@ class ScriptManager extends EngineScript{
     }
 
     async _parseEvents() {
-        for ( let i = 0; i < this.scripts.length; i++ ) {
+        for (let i = 0; i < this.scripts.length; i++) {
             var c_script = this.scripts[i];
 
             this._parseEventScript(c_script);
         }
 
-        this.event.call('scripts-ready');
+        this.event.emit('scripts-ready', this.diddle);
     }
 
     /**
@@ -183,7 +183,7 @@ class ScriptManager extends EngineScript{
         for (let i = 0; i < scriptEvents.length; i++) {
             let event = scriptEvents[i];
             if (event[0] == 'ready') {
-                this.event.on('scripts-ready',event[1]);
+                this.event.on('scripts-ready', event[1]);
             } else if (event[0].startsWith("discord")) {
                 this.diddle.pacman.get("org.js.diddle.engine.discord").event.on(event[0], event[1]);
             } else {
