@@ -15,7 +15,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"discord.js": "^12.5.3",
-		"tinytoolbox": "0.0.8"
+		"tinytoolbox": "^0.0.11"
 	},
 	"devDependencies": {
 		"bunchee": "^1.6.1",
