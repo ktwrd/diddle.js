@@ -28,32 +28,40 @@ class DiscordWrapper extends EngineScript{
                     this.client.on(DiscordEvents[i],async (d) => {
                         var msg = this.msg(d);
                         try {
-                            await this.event.emit(`discord-${DiscordEvents[i]}`,msg);
+                            await this.event.emit(`discord-${DiscordEvents[i]}`, this.diddle, msg);
                         } catch(e) {
-                            let ErrorID = toolbox.stringGen(4,6) + "-" + toolbox.stringGen(12,3) + "-" + toolbox.stringGen(7,3);
-                            let Timestamp = Date.now();
-                            var response = new discord.MessageEmbed()
-                                .setTitle("Error with Processing Message")
-                                .setDescription("```"+e.stack+"```\nErrorID: \`"+ErrorID+"\`")
-                                .setTimestamp()
-                                .setFooter(`Event: ${DiscordEvents[i]}`);
-                            d.channel.send({embed: response});
-                            this.event.emit(`discord-errorhandle`,{
-                                id: ErrorID,
-                                error: e,
-                                timestamp: Timestamp,
-                                message: d
-                            });
+                            try {
+                                let ErrorID = toolbox.stringGen(4,6) + "-" + toolbox.stringGen(12,3) + "-" + toolbox.stringGen(7,3);
+                                let Timestamp = Date.now();
+                                var response = new discord.MessageEmbed()
+                                    .setTitle("Error with Processing Message")
+                                    .setDescription("```"+e.stack+"```\nErrorID: \`"+ErrorID+"\`")
+                                    .setTimestamp()
+                                    .setFooter(`Event: ${DiscordEvents[i]}`);
+                                d.channel.send({embeds: [response]});
+                                this.event.emit(`discord-errorhandle`,{
+                                    id: ErrorID,
+                                    error: e,
+                                    timestamp: Timestamp,
+                                    message: d
+                                });
+                            } catch (err) {
+                                console.error(err)
+                            }
                         }
                     });
                     break;
                 default:
-                    this.client.on(DiscordEvents[i],(...d) => 
+                    this.client.on(DiscordEvents[i], (...d) => 
                     {
-                        // Yes, It's jank but it works. :/
-                        let args = [`discord-${DiscordEvents[i]}`];
-                        args = args.concat(d);
-                        this.event.emit( ...args );
+                        try {
+                            // Yes, It's jank but it works. :/
+                            let args = [`discord-${DiscordEvents[i]}`, this.diddle];
+                            args = args.concat(d);
+                            this.event.emit( ...args );
+                        } catch (error) {
+                            console.error(error)
+                        }
                     });
                     break;
             }
