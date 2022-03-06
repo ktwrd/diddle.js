@@ -65,6 +65,7 @@ class DiddleEngine {
 
 
     /**
+     * @private
      * @async
      * @param {Object|Array} obj 
      * @returns {Boolean}
