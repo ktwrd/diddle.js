@@ -12,7 +12,7 @@ const TokenManager = require("./tokenman.js");
 const PackageManager = require("./pacman.js");
 /**
  * @projectname diddle.js
- * @version 0.2.0
+ * @version 0.3.0
  */
 
 /**
