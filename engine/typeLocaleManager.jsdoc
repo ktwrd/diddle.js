@@ -1,0 +1,9 @@
+/**
+ * @namespace type$LocaleManager
+ */
+
+/**
+ * @typedef type$LocaleManager.LocaleCode
+ * @type {string}
+ * @description Locale Codes must be formatted as <code>[<a href="https://en.wikipedia.org/wiki/ISO_639-1">ISO 639-1</a>]_[<a href="https://en.wikipedia.org/wiki/ISO_3166-1_alpha-2">ISO 3166-1 alpha-2</a>]</code>. So, for example the Default Locale Code is <code>en_US</code>
+ */
