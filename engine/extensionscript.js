@@ -7,15 +7,15 @@ const crypto = require("crypto")
  * @extends {EngineScript}
  */
 class ExtensionScript extends EngineScript {
-	/**
-	 * @param {DiddleEngine} diddle 
-	 * @param {EngineScript.manifest} manifest 
-	 */
-	constructor(diddle,manifest) {
-		super(diddle,manifest);
-		this._ScriptUID = crypto.createHash("md5").update(manifest.name + "@" + manifest.version).digest("hex");
-		this.diddle.pacman.get("org.js.diddle.engine.extension").append(this);
-	}
+    /**
+     * @param {DiddleEngine} diddle 
+     * @param {EngineScript.manifest} manifest 
+     */
+    constructor(diddle,manifest) {
+        super(diddle,manifest);
+        this._ScriptUID = crypto.createHash("md5").update(manifest.name + "@" + manifest.version).digest("hex");
+        this.diddle.pacman.get("org.js.diddle.engine.extension").append(this);
+    }
 
 }
 module.exports = ExtensionScript;

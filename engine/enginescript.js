@@ -17,11 +17,11 @@ const Logger = require("./logger")
  * @param {EngineScript.manifest} manifest
  */
 class EngineScript {
-	constructor(diddle,manifest) {
-		this.diddle = diddle;
-		this.manifest = manifest;
-		this.log = new Logger(this.diddle,this.manifest.name);
-		this.event = new EventManager(this.diddle);
-	}
+    constructor(diddle,manifest) {
+        this.diddle = diddle;
+        this.manifest = manifest;
+        this.log = new Logger(this.diddle,this.manifest.name);
+        this.event = new EventManager(this.diddle);
+    }
 }
 module.exports = EngineScript;
