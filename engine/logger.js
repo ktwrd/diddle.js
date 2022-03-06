@@ -1,14 +1,19 @@
 /**
- * @class Logger
- * @arg {DiddleEngine} diddle
- * @arg {string} prefix Log Prefix. Defaults to <code>diddle.js</code>
+ * @class
  */
 class Logger {
+    /**
+     * @param {DiddleEngine} diddle 
+     * @param {String} prefix=org.js.diddle 
+     */
     constructor(diddle,prefix) { 
         this.diddle = diddle; 
         this.prefix = prefix || "org.js.diddle";
     }
 
+    /**
+     * @type {Object}
+     */
     color = {
         Reset: "\x1b[0m",
         Bright: "\x1b[1m",

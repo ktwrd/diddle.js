@@ -9,14 +9,24 @@ const manifest = {
 };
 
 /**
- * @property {string} filename The filename for the object currently accessing
- * @property {string} directory Directory where the file exists
- * @property {string} location Absolute file location
- * @property {bool} hasUpdated If true there are pending changes to sync.
+ * @class
  */
 class StorageObject {
+    /**
+     * @type {Boolean}
+     * @default false
+     * @summary
+     * If true there are pending changes to sync.
+     */
     hasUpdated = false;
 
+    /**
+     * @type {Object}
+     * @property {Object} meta
+     * @property {String} meta.name
+     * @property {String} meta.id
+     * @property {*} content=null
+     */
     _data = {
         meta: {
             name: '',
@@ -24,6 +34,44 @@ class StorageObject {
         },
         content: null
     }
+
+    /**
+     * @type {String}
+     * @default null
+     * @summary
+     * Filename of the storage object. Always ends with `.json`.
+     */
+    filename = null;
+
+    /**
+     * @type {String}
+     * @default null
+     * @summary
+     * Directory where {@link StorageObject.filename} exists in.
+     */
+    directory = null;
+
+    /**
+     * @type {String}
+     * @default null
+     * @summary
+     * If {@link StorageObject.filename} and {@link StorageObject.directory} is not `null`,
+     * then the combined {@link StorageObject.directory|directory} and {@link StorageObject.filename|filename} is returned.
+     */
+    get location() {
+        if (this.directory != null && this.filename != null) {
+            if (!fs.existsSync(this.directory)) {
+                try {
+                    fs.mkdirSync(this.directory, {recursive: true})
+                } catch(e) {
+                    return null
+                }
+            }
+            return path.join(this.directory, this.filename)
+        }
+        return null
+    }
+    location = null;
 
     /**
      * @param {string} _filename A Valid JSON Filename
@@ -45,7 +93,8 @@ class StorageObject {
     }
 
     /**
-     * @description Sync data from the StorageObject to the File if there are changes or sync the File to this StorageObject if there are no pending changes.
+     * @summary
+     * Sync data from the StorageObject to the File if there are changes or sync the File to this StorageObject if there are no pending changes.
      */
     sync() {
         try {
@@ -65,23 +114,24 @@ class StorageObject {
     }
 
     /**
-     * @description Reset the storage objects Unique Identifier
+     * @summary
+     * Reset the storage objects Unique Identifier
      */
     resetID() {
         this._data.meta.id = toolbox.stringGen(16,3);
         this.hasUpdated = true;
     }
+
     /**
-     * 
-     * @returns {*} Data stored in <code>_data.meta.content</code>
+     * @returns {StorageObject.data.content}
      */
     get() {
         return this._data.content;
     }
+
     /**
-     * 
-     * @param {*} data Set this StorageObjects content
-     * @returns {*} <code>_data.meta.content</code>
+     * @param {*} data - Data to replace the contents of {@link StorageObject.data.content} with.
+     * @returns {StorageObject.data.content}
      */
     set(data) {
         this.hasUpdated = true;
@@ -90,9 +140,12 @@ class StorageObject {
     }
 }
 
+/**
+ * @class
+ * @extends EngineScript
+ */
 class StorageManager extends EngineScript {
     /**
-     * 
      * @param {DiddleEngine} diddle 
      */
     constructor(diddle) {
@@ -158,6 +211,10 @@ class StorageManager extends EngineScript {
         return this._cache.filter(s => s.filename == fname);
     }
 
+    /**
+     * @param {String} _name - Target Filename
+     * @returns {StorageObject}
+     */
     create(_name) {
         let so = new StorageObject(`${_name}.json`,this.directory);
         this._cache.push(so);

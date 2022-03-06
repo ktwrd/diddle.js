@@ -1,0 +1,9 @@
+/**
+ * @namespace type$EngineScript
+ */
+
+/**
+ * @typedef {Object} type$EngineScript.Manifest
+ * @property {String} name - Engine Script Name
+ * @property {String} version - Version Number of the EngineScript
+ */

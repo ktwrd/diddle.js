@@ -185,9 +185,9 @@ class ScriptManager extends EngineScript{
             if (event[0] == 'ready') {
                 this.event.on('scripts-ready',event[1]);
             } else if (event[0].startsWith("discord")) {
-                this.diddle.pacman.get("org.js.diddle.engine.discord").event.on(event[0],event[1]);
+                this.diddle.pacman.get("org.js.diddle.engine.discord").event.on(event[0], event[1]);
             } else {
-                this.event.on(event[0],event[1]);
+                this.event.on(event[0], event[1]);
             }
         }
     }

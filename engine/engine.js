@@ -16,11 +16,9 @@ const PackageManager = require("./pacman.js");
  */
 
 /**
- * diddle.js Engine
  * @class
- * @property {number} startTimestamp startTimestamp The UNIX Timecode of when the DiddleEngine was invoked (ms)
- * @property {string} directory Base directory of where <code>diddlejs</code> was ran from.
- * @property {PackageManager} pacman
+ * @summary
+ * diddle.js Engine
  */
 class DiddleEngine {
     /**
@@ -42,10 +40,23 @@ class DiddleEngine {
         ]
     }
 
+    /**
+     * @type {String}
+     * @summary
+     * Base directory of where {@link DiddleEngine} was ran from.
+     */
     directory = path.resolve("./");
 
+    /**
+     * @type {Number}
+     * @summary
+     * Unix Epoch in Milliseconds (from `Date.now()`)
+     */
     startTimestamp = Date.now()
 
+    /**
+     * @type {Object<String, Array.<Function>>}
+     */
     _eventchannels = {
         /*
         <channel>: function[]
@@ -53,7 +64,11 @@ class DiddleEngine {
     };
 
 
-    /** @private */
+    /**
+     * @async
+     * @param {Object|Array} obj 
+     * @returns {Boolean}
+     */
     _isJSON(obj) {
         return new Promise((res) => {
             try {
@@ -86,7 +101,6 @@ class DiddleEngine {
     }
 
     /**
-     * @constructor
      * @param {ConfigurationManager.config} diddleconfig User configuration, gets merged with <code>engine/diddle.config.default.json</code> to make sure that the required values are populated.
      * @param {bool} debug Whether to enable debug logging
      */
@@ -107,6 +121,12 @@ class DiddleEngine {
 
         this._wrapperPopulate();
     }
+
+    /**
+     * @type {PackageManager}
+     * @default null
+     */
+    pacman = null;
 }
 
 module.exports = {

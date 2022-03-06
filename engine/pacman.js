@@ -6,9 +6,13 @@ const manifest = {
 }
 
 /**
- * @extends {EngineScript}
+ * @class
+ * @extends EngineScript
  */
 class PackageManager extends EngineScript {
+    /**
+     * @param {Array.<EngineScript>} arr 
+     */
     _processPackageArray(arr) {
         for (let i = 0; i < arr.length; i++) {
             var currentscript = arr[i];
@@ -36,8 +40,11 @@ class PackageManager extends EngineScript {
     get(PackageName) {
         return this._data[PackageName];
     }
+
+    /** @type {Object} */
+    _data = {};
+
     /**
-     * 
      * @param {DiddleEngine} diddle 
      */
     constructor(diddle) {

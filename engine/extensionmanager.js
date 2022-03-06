@@ -14,16 +14,21 @@ function isClass(v) {
 
 /**
  * @class
- * @property {string} cwd The absolute directory where all of the custom Engine Extensions live.
- * @extends {EngineScript}
+ * @extends EngineScript
  */
 class EngineExtensionManager extends EngineScript {
+    /**
+     * @type {String}
+     * @summary
+     * The absolute directory where all of the custom Engine Extensions live.
+     */
+    cwd = '';
+
     /**
      * @param {DiddleEngine} diddle 
      */
     constructor(diddle) {
-        super(diddle,manifest);
-        // Current Working Directory
+        super(diddle, manifest);
         this.cwd = '';
     }
 
@@ -31,6 +36,7 @@ class EngineExtensionManager extends EngineScript {
         this._fetchExtensions();
     }
 
+    /** @type {Object<string, ExtensionScript>} */
     _store = {
         /*
         <ScriptUID>: ExtensionScript
@@ -47,7 +53,7 @@ class EngineExtensionManager extends EngineScript {
 
     /**
      * @description Fetch Extension by its Unique Identifier
-     * @param {string} extension 
+     * @param {String} ScriptUID 
      * @returns {ExtensionScript}
      */
     getByUID(ScriptUID) {
@@ -57,7 +63,7 @@ class EngineExtensionManager extends EngineScript {
 
     /**
      * @description Returns an Array of all Extensions that match the given name.
-     * @param {*} ScriptName 
+     * @param {String} ScriptName 
      * @returns {ExtensionScript[]}
      */
     getByName(ScriptName) {
