@@ -14,7 +14,7 @@
 	"author": "Jyles Coad-Ward <jyles@dariox.club>",
 	"license": "MIT",
 	"dependencies": {
-		"discord.js": "^12.5.3",
+		"discord.js": "^13.6.0",
 		"tinytoolbox": "^0.0.11"
 	},
 	"devDependencies": {
