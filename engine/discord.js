@@ -28,7 +28,7 @@ class DiscordWrapper extends EngineScript{
                     this.client.on(DiscordEvents[i],async (d) => {
                         var msg = this.msg(d);
                         try {
-                            await this.event.call(`discord-${DiscordEvents[i]}`,msg);
+                            await this.event.emit(`discord-${DiscordEvents[i]}`,msg);
                         } catch(e) {
                             let ErrorID = toolbox.stringGen(4,6) + "-" + toolbox.stringGen(12,3) + "-" + toolbox.stringGen(7,3);
                             let Timestamp = Date.now();
@@ -38,7 +38,7 @@ class DiscordWrapper extends EngineScript{
                                 .setTimestamp()
                                 .setFooter(`Event: ${DiscordEvents[i]}`);
                             d.channel.send({embed: response});
-                            this.event.call(`discord-errorhandle`,{
+                            this.event.emit(`discord-errorhandle`,{
                                 id: ErrorID,
                                 error: e,
                                 timestamp: Timestamp,
@@ -53,7 +53,7 @@ class DiscordWrapper extends EngineScript{
                         // Yes, It's jank but it works. :/
                         let args = [`discord-${DiscordEvents[i]}`];
                         args = args.concat(d);
-                        this.event.call( ...args );
+                        this.event.emit( ...args );
                     });
                     break;
             }
@@ -84,7 +84,20 @@ class DiscordWrapper extends EngineScript{
 
     constructor(diddle) {
         super(diddle,manifest);
-        this.client = new discord.Client();
+        this.client = new discord.Client({ 
+            intents: [
+                discord.Intents.FLAGS.GUILDS,
+                discord.Intents.FLAGS.GUILD_BANS,
+                discord.Intents.FLAGS.GUILD_INTEGRATIONS,
+                discord.Intents.FLAGS.GUILD_INVITES,
+                discord.Intents.FLAGS.GUILD_MEMBERS,
+                discord.Intents.FLAGS.GUILD_MESSAGES,
+                discord.Intents.FLAGS.GUILD_MESSAGE_TYPING,
+                discord.Intents.FLAGS.GUILD_PRESENCES,
+                discord.Intents.FLAGS.GUILD_VOICE_STATES,
+                discord.Intents.FLAGS.DIRECT_MESSAGES
+            ]
+        });
         this.log.info(`Running ${this.manifest.name}@${this.manifest.version}`);
     }
     
