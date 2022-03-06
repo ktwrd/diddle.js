@@ -14,7 +14,9 @@ class TokenManager extends EngineScript {
      */
     constructor(diddle) {
         super(diddle, manifest);
-        this.event.on('dataReload', this.on_dataReload)
+        this.event.on('dataReload', d => this.on_dataReload())
+        this.event.on('data-reload', d => this.event.emit('dataReload'))
+        this.ready()
     }
 
     /**
@@ -33,7 +35,8 @@ class TokenManager extends EngineScript {
      * @emits TokenManager.dataReload
      */
     ready() {
-        this.event.call('data-reload');
+        this.event.emit('dataReload');
+        this.event.emit('data-reload');
     }
 
     /**
@@ -42,15 +45,15 @@ class TokenManager extends EngineScript {
      */
     get(key) {
         if (key == undefined) throw new Error (`Parameter 'key' is undefined`)
-        return this._data[key]
+        return this.#data[key]
     }
 
     // SECTION Event Listeners
     /** @listens TokenManager.dataReload */
     on_dataReload() {
         let data = this.diddle.pacman.get('org.js.diddle.engine.config').get()
-        if (data.token == undefined || typeof data.token != 'object')
-            data.token = {}
+        console.log('aAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
+        console.log(data)
         this.#data = data.token
     }
     // !SECTION
