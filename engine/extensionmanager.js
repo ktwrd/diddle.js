@@ -4,114 +4,120 @@ const path = require("path")
 const fs = require("fs")
 
 const manifest = {
-	name: "org.js.diddle.engine.extension",
-	version: "0.1"
+    name: "org.js.diddle.engine.extension",
+    version: "0.1"
 }
 
 function isClass(v) {
-	return typeof v === 'function' && /^\s*class\s+/.test(v.toString());
+    return typeof v === 'function' && /^\s*class\s+/.test(v.toString());
 }
 
 /**
  * @class
- * @property {string} cwd The absolute directory where all of the custom Engine Extensions live.
- * @extends {EngineScript}
+ * @extends EngineScript
  */
 class EngineExtensionManager extends EngineScript {
-	/**
-	 * @param {DiddleEngine} diddle 
-	 */
-	constructor(diddle) {
-		super(diddle,manifest);
-		// Current Working Directory
-		this.cwd = '';
-	}
+    /**
+     * @type {String}
+     * @summary
+     * The absolute directory where all of the custom Engine Extensions live.
+     */
+    cwd = '';
 
-	_ready() {
-		this._fetchExtensions();
-	}
+    /**
+     * @param {DiddleEngine} diddle 
+     */
+    constructor(diddle) {
+        super(diddle, manifest);
+        this.cwd = '';
+    }
 
-	_store = {
-		/*
-		<ScriptUID>: ExtensionScript
-		*/
-	}
+    _ready() {
+        this._fetchExtensions();
+    }
 
-	/**
-	 * @description Add Custom Engine Extension
-	 * @param {ExtensionScript} extension 
-	 */
-	append(extension) {
-		this._store[extension._ScriptUID] = extension;
-	}
+    /** @type {Object<string, ExtensionScript>} */
+    _store = {
+        /*
+        <ScriptUID>: ExtensionScript
+        */
+    }
 
-	/**
-	 * @description Fetch Extension by its Unique Identifier
-	 * @param {string} extension 
-	 * @returns {ExtensionScript}
-	 */
-	getByUID(ScriptUID) {
-		if (this._store[ScriptUID] == undefined) throw new Error(this.diddle.locale.get("ScriptExt.FetchFail.ExtensionNotFound"))
-		return this._store[ScriptUID];
-	}
+    /**
+     * @description Add Custom Engine Extension
+     * @param {ExtensionScript} extension 
+     */
+    append(extension) {
+        this._store[extension._ScriptUID] = extension;
+    }
 
-	/**
-	 * @description Returns an Array of all Extensions that match the given name.
-	 * @param {*} ScriptName 
-	 * @returns {ExtensionScript[]}
-	 */
-	getByName(ScriptName) {
-		return Object.entries(this._store).filter(script => script[1].manifest.name == ScriptName);
-	}
+    /**
+     * @description Fetch Extension by its Unique Identifier
+     * @param {String} ScriptUID 
+     * @returns {ExtensionScript}
+     */
+    getByUID(ScriptUID) {
+        if (this._store[ScriptUID] == undefined) throw new Error(this.diddle.locale.get("ScriptExt.FetchFail.ExtensionNotFound"))
+        return this._store[ScriptUID];
+    }
 
-	_fetchExtensions() {
-		var config = this.diddle.pacman.get("org.js.diddle.engine.config").get();
+    /**
+     * @description Returns an Array of all Extensions that match the given name.
+     * @param {String} ScriptName 
+     * @returns {ExtensionScript[]}
+     */
+    getByName(ScriptName) {
+        return Object.entries(this._store).filter(script => script[1].manifest.name == ScriptName);
+    }
 
-		var timestamp_start = Date.now();
+    _fetchExtensions() {
+        var config = this.diddle.pacman.get("org.js.diddle.engine.config").get();
 
-		this.log.info(`fetching extensions...`);
+        var timestamp_start = Date.now();
 
-		this.cwd = path.resolve(config.extensions);
+        this.log.info(`fetching extensions...`);
 
-		if (!fs.existsSync(this.cwd)) {
-			try {
-				fs.mkdirSync(this.cwd)
-			} catch(e) {
-				this.log.error(`cannot create extensions directory\n`,e);
-				process.exit(1);
-			}
-			this.log.info(`created extensions directory`);
-		}
+        this.cwd = path.resolve(config.extensions);
 
-		
-		// Get Script Files
-		var ext_filenames,ext_filtered = [];
+        if (!fs.existsSync(this.cwd)) {
+            try {
+                fs.mkdirSync(this.cwd)
+            } catch(e) {
+                this.log.error(`cannot create extensions directory\n`,e);
+                process.exit(1);
+            }
+            this.log.info(`created extensions directory`);
+        }
 
-		try {
-			ext_filenames = fs.readdirSync(this.cwd).filter(f => f.endsWith(".js"));
-		} catch(e) {
-			this.log.error(`cannot fetch extensions directory\n`,e);
-			process.exit(1);
-		}
+        
+        // Get Script Files
+        var ext_filenames,ext_filtered = [];
 
-		for (let i = 0; i < ext_filenames.length; i++) {
-			let current_filename = ext_filenames[i];
-			let current = require(path.join(this.cwd,current_filename));
+        try {
+            ext_filenames = fs.readdirSync(this.cwd).filter(f => f.endsWith(".js"));
+        } catch(e) {
+            this.log.error(`cannot fetch extensions directory\n`,e);
+            process.exit(1);
+        }
 
-			if (isClass(current)) {
-				var ext = new current(this.diddle);
-				if (ext.manifest.name)
-				ext_filtered.push(ext);
-				this.log.debug(`loaded extension ${ext.manifest.name}@${ext.manifest.version} (${ext._ScriptUID})`)
-			} else {
-				this.log.error(`extension '${path.join(this.cwd,current_filename)}' cannot be constructed (isn't a class)`);
-				return;
-			}
-		}
+        for (let i = 0; i < ext_filenames.length; i++) {
+            let current_filename = ext_filenames[i];
+            let current = require(path.join(this.cwd,current_filename));
 
-		this.extensions = ext_filtered;
+            if (isClass(current)) {
+                var ext = new current(this.diddle);
+                if (ext.manifest.name)
+                ext_filtered.push(ext);
+                this.log.debug(`loaded extension ${ext.manifest.name}@${ext.manifest.version} (${ext._ScriptUID})`)
+            } else {
+                this.log.error(`extension '${path.join(this.cwd,current_filename)}' cannot be constructed (isn't a class)`);
+                return;
+            }
+        }
 
-		this.log.info(`took ${Date.now() - timestamp_start}ms`);
-	}
+        this.extensions = ext_filtered;
+
+        this.log.info(`took ${Date.now() - timestamp_start}ms`);
+    }
 }
 module.exports = EngineExtensionManager;

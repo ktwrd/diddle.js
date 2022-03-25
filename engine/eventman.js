@@ -1,62 +1,84 @@
 const Logger = require("./logger");
+const EventEmitter = require('events')
 
 const manifest = {
-	version: '0.1b',
-	name: 'org.js.diddle.engine.event'
+    version: '0.1b',
+    name: 'org.js.diddle.engine.event'
 }
+
 /**
- * @class EventManager
- * @property {EngineScript.Manifest} manifest
+ * @class
+ * @extends node:events
  */
-class EventManager {
+class EventManager extends EventEmitter {
+    /**
+     * @type {Logger}
+     * @default null
+     * @private
+     */
+    #logger = null;
 
-	constructor(diddle) {
-		this.diddle = diddle;
-		this._eventchannels = {}
-		this.log = new Logger(diddle,manifest.name);
-		this.manifest = manifest;
-	}
-	/**
-	 * Listen to an event on specified channel.
-	 * @param {string} _channel 
-	 * @param  {...function} _callbacks 
-	 */
-	on (_channel,..._callbacks) {
-		if (this._eventchannels[_channel] == undefined) {
-			this._eventchannels[_channel] = [];
-		}
-		for ( let i = 0; i < _callbacks.length; i++) {
-			this._eventchannels[_channel].push(_callbacks[i]);
-		}
-		this.log.debug(`added event listener for '${_channel}'`);
-	}
-	/**
-	 * Invoke Event to the specified channel.
-	 * @param {string} _channel 
-	 * @param {*} _data 
-	 */
-	call (_channel,..._data) {
-		if (this._eventchannels[_channel] == undefined) {
-			this._eventchannels[_channel] = [];
-		}
-		this.log.debug(`called event '${_channel}' `,_data || '');
-		return new Promise(async (resolve,reject) => {
-			let tmpPromise = this._eventchannels[_channel].map(e => new Promise(res => e(this.diddle,..._data || null)));
+    /**
+     * @type {DiddleEngine}
+     * @default null
+     */
+    diddle = null;
 
-			Promise.all(tmpPromise)
-				.then((response) =>
-				{
-					if (response != undefined && response.stack != undefined)
-					{
-						reject(response);
-					}
-					else
-					{
-						resolve(response == undefined ? null : response);
-					}
-				})
-				.catch(reject);
-		})
-	}
+    /**
+     * @param {DiddleEngine} diddle 
+     */
+    constructor(diddle) {
+        super();
+        this.diddle = diddle;
+        this.#logger = new Logger(diddle, manifest.name);
+
+        this.on('newListener', this.#onNewListener)
+        this.on('removeListener', this.#onRemoveListener)
+        this.on('debug', this.#logger.debug)
+        this.on('error', this.#logger.error)
+        this.on('warn', this.#logger.warn)
+        this.on('destroy', () => {
+            setTimeout(() => {
+                this.removeAllListeners()
+            }, 150)
+        })
+    }
+
+    /**
+     * @listens EventManager.newListener
+     * @param {String|Symbol} eventName 
+     * @param {Function} listener 
+     */
+    #onNewListener(eventName, listener) {
+        this.#logger.debug(`newListener    -> ${eventName}`)
+    }
+    /**
+     * @listens EventManager.removeListener
+     * @param {String|Symbol} eventName 
+     * @param {Function} listener 
+     */
+    #onRemoveListener(eventName, listener) {
+        this.#logger.debug(`removeListener -> ${eventName}`)
+    }
+
+    /**
+     * @alias node:events.call
+     */
+    get call() {
+        return this.emit;
+    }
+
+    /**
+     * @event EventManager.newListener
+     * @see https://nodejs.org/api/events.html#event-newlistener
+     * @param {String|Symbol} eventName
+     * @param {Function} listener
+     */
+    /**
+     * @event EventManager.removeListener
+     * @see https://nodejs.org/api/events.html#event-removelistener
+     * @param {String|Symbol} eventName
+     * @param {Function} listener
+     */
 }
 module.exports = EventManager;

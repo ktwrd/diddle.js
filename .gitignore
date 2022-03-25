@@ -120,3 +120,4 @@ dist
 dist/
 secrets.json
 scripts/*.js
+diddle.js-docs/

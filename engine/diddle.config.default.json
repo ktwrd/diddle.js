@@ -1,15 +1,15 @@
 {
-	"disable": false,
-	"discord": {
-		"admin": [],
-		"prefix": "!"
-	},
-	"token": {
-		"discord": ""
-	},
-	"locale": "en_US",
-	"scripts": "./scripts/",
-	"extensions": "./exts/",
-	"data": "./data/",
-	"debug": false
+    "disable": false,
+    "discord": {
+        "admin": [],
+        "prefix": "!"
+    },
+    "token": {
+        "discord": ""
+    },
+    "locale": "en_US",
+    "scripts": "./scripts/",
+    "extensions": "./exts/",
+    "data": "./data/",
+    "debug": false
 }

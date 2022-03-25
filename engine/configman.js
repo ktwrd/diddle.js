@@ -11,8 +11,8 @@ function extend(target) {
     return target;
 }
 const manifest = {
-	version: '0.1b',
-	name: 'org.js.diddle.engine.config'
+    version: '0.1b',
+    name: 'org.js.diddle.engine.config'
 }
 
 /**
@@ -37,22 +37,22 @@ const manifest = {
  * @argument {ConfigurationManager.config} _config
  */
 class ConfigurationManager extends EngineScript{
-	_ready() {
-		this.config = extend({},DefaultConfig,this._config);
-		this.locale = this.diddle.locale.switch(this.config.locale);
-	}
-	constructor(diddle,_config) {
-		super(diddle,manifest);
-		this._config = _config;
-		this.log.info(`Running ${this.manifest.name}@${this.manifest.version}`);
-	}
+    _ready() {
+        this.config = extend({},DefaultConfig,this._config);
+        this.locale = this.diddle.locale.switch(this.config.locale);
+    }
+    constructor(diddle,_config) {
+        super(diddle,manifest);
+        this._config = _config;
+        this.log.info(`Running ${this.manifest.name}@${this.manifest.version}`);
+    }
 
-	/**
-	 * 
-	 * @returns {ConfigurationManager.config}
-	 */
-	get() {
-		return this.config;
-	}
+    /**
+     * 
+     * @returns {ConfigurationManager.config}
+     */
+    get() {
+        return this.config;
+    }
 }
 module.exports = ConfigurationManager;
