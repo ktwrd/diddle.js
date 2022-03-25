@@ -52,8 +52,6 @@ class TokenManager extends EngineScript {
     /** @listens TokenManager.dataReload */
     on_dataReload() {
         let data = this.diddle.pacman.get('org.js.diddle.engine.config').get()
-        console.log('aAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA')
-        console.log(data)
         this.#data = data.token
     }
     // !SECTION
